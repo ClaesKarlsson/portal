@@ -1,0 +1,48 @@
+---
+import { nav, site } from "../data/site";
+
+const path = Astro.url.pathname.replace(/\/$/, "") || "/";
+---
+
+<header class="sticky top-0 z-30 border-b border-line/80 bg-paper/90 backdrop-blur">
+  <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-4">
+    <a href="/" class="group block leading-none">
+      <span class="font-serif text-2xl font-medium tracking-tight">{site.name}</span>
+      <span class="mt-1 block text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-moss">Butikskassa</span>
+    </a>
+
+    <nav class="hidden items-center gap-6 lg:flex" aria-label="Huvudmeny">
+      {
+        nav.map((item) => (
+          <a
+            href={item.href}
+            aria-current={path === item.href ? "page" : undefined}
+            class:list={[
+              "text-sm font-semibold",
+              path === item.href ? "text-moss underline decoration-2 underline-offset-8" : "text-ink hover:text-moss",
+            ]}
+          >
+            {item.label}
+          </a>
+        ))
+      }
+      <a href="/boka" class="btn px-4 py-2 text-sm">Boka visning</a>
+    </nav>
+
+    <details class="relative lg:hidden">
+      <summary class="cursor-pointer list-none rounded-full border border-line bg-card px-4 py-2 text-sm font-semibold">
+        Meny
+      </summary>
+      <nav class="absolute right-0 z-20 mt-2 w-52 rounded-2xl border border-line bg-card p-3 shadow-lg" aria-label="Huvudmeny">
+        {
+          nav.map((item) => (
+            <a href={item.href} class="block rounded-lg px-3 py-2 text-sm font-semibold hover:bg-paper">
+              {item.label}
+            </a>
+          ))
+        }
+        <a href="/boka" class="btn mt-2 w-full text-sm">Boka visning</a>
+      </nav>
+    </details>
+  </div>
+</header>

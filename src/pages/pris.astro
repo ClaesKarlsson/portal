@@ -1,0 +1,61 @@
+---
+import Base from "../layouts/Base.astro";
+import { kronor, site } from "../data/site";
+
+const rows = [
+  {
+    title: "Program",
+    when: "Varje månad",
+    price: kronor(site.prices.programMonthly, "/ mån"),
+    text: "Kassa, kundskärm, lager, inköp, inventering, presentkort, streckkoder, rapporter och bokslutskontroll. Uppdateringar och support ingår.",
+  },
+  {
+    title: "Kassapaket",
+    when: "En gång",
+    price: kronor(site.prices.kassapaket, "engång"),
+    text: "Kassadator med programmet installerat, kvittoskrivare, kassalåda, kundskärm och streckkodsläsare. Installation och genomgång i butiken ingår.",
+  },
+  {
+    title: "Kontrollenhet",
+    when: "En gång per kassa",
+    price: kronor(site.prices.kontrollenhet, "per kassa"),
+    text: "CleanCash Typ A. Certifierad hårdvara från annan tillverkare. Krävs för att kassan ska kunna registrera försäljning.",
+  },
+];
+---
+
+<Base
+  title="Pris — Kassa På Plats"
+  description="Månadsavgift för programmet, engångspris för kassapaketet och en kontrollenhet per kassa."
+>
+  <section class="mx-auto max-w-6xl px-5 pt-14">
+    <p class="text-sm font-semibold uppercase tracking-[0.16em] text-moss">Pris</p>
+    <h1 class="mt-3 max-w-3xl text-4xl leading-tight sm:text-5xl">Tre poster. Inget mer i grunden.</h1>
+    <p class="mt-5 max-w-2xl text-lg leading-8 text-muted">
+      Programmet är en månadskostnad. Kassapaketet och kontrollenheten betalas en gång. Priserna sätts vid visningen, utifrån butikens disk.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-5 pt-10">
+    <div class="overflow-hidden rounded-[1.6rem] border border-line">
+      {
+        rows.map((row) => (
+          <article class="grid gap-3 border-b border-line bg-card px-6 py-6 last:border-b-0 sm:grid-cols-[1fr_auto] sm:items-start sm:gap-10">
+            <div>
+              <h2 class="font-serif text-2xl">{row.title}</h2>
+              <p class="mt-1 text-xs font-semibold uppercase tracking-[0.14em] text-muted">{row.when}</p>
+              <p class="mt-3 max-w-xl text-sm leading-6 text-muted">{row.text}</p>
+            </div>
+            <p class="font-serif text-2xl text-clay sm:text-right">{row.price}</p>
+          </article>
+        ))
+      }
+    </div>
+    <ul class="mt-6 space-y-2 text-sm leading-6 text-muted">
+      <li>Etikettskrivare offereras som tillval.</li>
+      <li>Kortterminal ingår inte. Den väljs separat.</li>
+      <li>En andra kassa i samma butik behöver egen kontrollenhet, egen skrivare och egen kundskärm.</li>
+    </ul>
+    <a class="btn mt-8" href="/boka">Boka visning och få pris</a>
+  </section>
+</Base>

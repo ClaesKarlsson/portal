@@ -1,0 +1,52 @@
+---
+import Base from "../layouts/Base.astro";
+
+const movements = [
+  { title: "Försäljning", text: "En såld produkt minskar saldot direkt." },
+  { title: "Retur", text: "Produkten läggs tillbaka. En tjänst återbetalas utan lagerändring." },
+  { title: "Inköp", text: "Lagret ökar när inköpet låses." },
+  { title: "Justering", text: "Svinn, intern förbrukning och korrigering mot hyllan görs med en anledning." },
+];
+---
+
+<Base
+  title="Lager och inköp — Kassa På Plats"
+  description="Lagersaldo, inköp, inventering och streckkoder i samma system som kassan."
+>
+  <section class="mx-auto max-w-6xl px-5 pt-14">
+    <p class="text-sm font-semibold uppercase tracking-[0.16em] text-moss">Lager</p>
+    <h1 class="mt-3 max-w-3xl text-4xl leading-tight sm:text-5xl">Saldot följer det som händer i butiken.</h1>
+    <p class="mt-5 max-w-2xl text-lg leading-8 text-muted">
+      Kassan, inköpen och inventeringen skriver i samma lager. Tjänster ingår inte i saldot. Inaktiva artiklar döljs tills du väljer att visa dem.
+    </p>
+  </section>
+
+  <section class="mx-auto grid max-w-6xl gap-4 px-5 pt-12 sm:grid-cols-2">
+    {
+      movements.map((item) => (
+        <article class="rounded-3xl border border-line bg-card p-6">
+          <h2 class="font-serif text-2xl">{item.title}</h2>
+          <p class="mt-3 text-sm leading-6 text-muted">{item.text}</p>
+        </article>
+      ))
+    }
+  </section>
+
+  <section class="mx-auto grid max-w-6xl gap-8 px-5 pt-16 lg:grid-cols-2">
+    <div class="rounded-[2rem] bg-moss px-6 py-8 text-paper sm:px-8">
+      <h2 class="text-3xl">Inventering</h2>
+      <p class="mt-4 leading-7 text-paper/85">
+        Räkna fysiska artiklar genom sökning eller skanning. En större räkning kan sparas som session och låsas när den är klar, även om den görs över flera pass. Tjänster syns inte och kan inte skannas in.
+      </p>
+    </div>
+    <div class="rounded-[2rem] border border-line px-6 py-8 sm:px-8">
+      <h2 class="text-3xl">Streckkoder</h2>
+      <p class="mt-4 leading-7 text-muted">
+        Artiklar får koder som kassan kan skanna. Etiketter skrivs ut från programmet, på en etikettskrivare om butiken har en. Utan egen etikettskrivare öppnas etiketten som PDF.
+      </p>
+      <a class="mt-6 inline-block text-sm font-semibold text-moss underline decoration-line underline-offset-4" href="/utrustning">
+        Etikettskrivare är tillval
+      </a>
+    </div>
+  </section>
+</Base>

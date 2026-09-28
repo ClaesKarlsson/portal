@@ -1,0 +1,112 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Figtree Variable", "Figtree", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Fraunces Variable", "Fraunces", ui-serif, Georgia, serif;
+  --color-paper: #efeae2;
+  --color-card: #f7f4ef;
+  --color-ink: #1a1814;
+  --color-muted: #4f493f;
+  --color-moss: #1f4d3a;
+  --color-moss-2: #2a6850;
+  --color-clay: #8f3d1b;
+  --color-line: #d8d0c4;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01";
+  }
+
+  h1,
+  h2,
+  .font-serif {
+    font-family: var(--font-serif);
+    font-variation-settings: "SOFT" 30, "opsz" 72, "wght" 560;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-moss);
+    outline-offset: 3px;
+  }
+}
+
+@utility field {
+  width: 100%;
+  border-radius: 0.75rem;
+  border: 1px solid var(--color-line);
+  background: white;
+  padding: 0.7rem 0.85rem;
+  color: var(--color-ink);
+}
+
+@utility btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: var(--color-moss);
+  padding: 0.7rem 1.15rem;
+  font-size: 0.95rem;
+  font-weight: 650;
+  color: var(--color-paper);
+
+  &:hover {
+    background: var(--color-moss-2);
+  }
+}
+
+.perforation {
+  height: 14px;
+  background-image: radial-gradient(circle at 8px 0, var(--color-paper) 7px, transparent 7.5px);
+  background-size: 18px 14px;
+  background-repeat: repeat-x;
+}
+
+@utility btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--color-ink) 18%, transparent);
+  background: transparent;
+  padding: 0.7rem 1.15rem;
+  font-size: 0.95rem;
+  font-weight: 650;
+  color: var(--color-ink);
+
+  &:hover {
+    background: white;
+  }
+}
+
+@utility btn-light {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: var(--color-paper);
+  padding: 0.7rem 1.15rem;
+  font-size: 0.95rem;
+  font-weight: 650;
+  color: var(--color-ink);
+
+  &:hover {
+    background: white;
+  }
+}
+
+summary {
+  list-style: none;
+}
+
+summary::-webkit-details-marker {
+  display: none;
+}

@@ -1,0 +1,27 @@
+---
+import { site } from "../data/site";
+---
+
+<footer class="mt-20 border-t border-line">
+  <div class="mx-auto grid max-w-6xl gap-8 px-5 py-10 sm:grid-cols-2">
+    <div>
+      <p class="font-serif text-2xl">{site.name}</p>
+      <p class="mt-1 text-sm text-muted">{site.place}</p>
+      <p class="mt-2 max-w-sm text-sm leading-6 text-muted">
+        Butikskassa med lager, inköp och dagsavslut. Installeras i butiken av {site.contactName}.
+      </p>
+    </div>
+    <div class="sm:justify-self-end sm:text-right">
+      <p class="text-sm font-semibold">{site.contactName}</p>
+      <p class="mt-2 text-sm">
+        <a class="underline decoration-line underline-offset-4 hover:text-moss" href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a>
+      </p>
+      <p class="mt-1 text-sm">
+        <a class="underline decoration-line underline-offset-4 hover:text-moss" href={`tel:${site.contactPhoneHref}`}>{site.contactPhone}</a>
+      </p>
+      <p class="mt-4 text-sm">
+        <a class="underline decoration-line underline-offset-4 hover:text-moss" href="/integritet">Integritet</a>
+      </p>
+    </div>
+  </div>
+</footer>

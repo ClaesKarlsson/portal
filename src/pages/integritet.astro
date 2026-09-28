@@ -1,0 +1,25 @@
+---
+import Base from "../layouts/Base.astro";
+import { site } from "../data/site";
+---
+
+<Base
+  title="Integritet — Kassa På Plats"
+  description="Så hanteras namn, butik och telefon när du bokar en visning."
+>
+  <section class="mx-auto max-w-3xl px-5 pt-14">
+    <p class="text-sm font-semibold uppercase tracking-[0.16em] text-moss">Integritet</p>
+    <h1 class="mt-3 text-4xl leading-tight sm:text-5xl">Uppgifterna i en visningsförfrågan</h1>
+    <div class="mt-8 space-y-5 text-base leading-8 text-muted">
+      <p>
+        Sidan sparar inga formulär i en databas. När du skickar förfrågan öppnas ditt e-postprogram, och mailet går till {site.contactName} på {site.contactEmail} först när du själv skickar det.
+      </p>
+      <p>
+        Mailet kan innehålla namn, butik, ort, telefon, e-post och det du skriver om visningen. Det används för att boka visningen och lämna pris. Det ligger sedan i den inkorgen.
+      </p>
+      <p>
+        Skriv till <a class="text-ink underline decoration-line underline-offset-4" href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a> om du vill att förfrågan raderas.
+      </p>
+    </div>
+  </section>
+</Base>
