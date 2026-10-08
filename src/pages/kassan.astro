@@ -1,62 +1,43 @@
 ---
 import Base from "../layouts/Base.astro";
+import { content, fyll } from "../data/site";
 
-const steps = [
-  { title: "Skanna", text: "Vara, tjänst eller manuell rad. Återkommande jobb, till exempel lagning, ligger som tjänst och påverkar inte lagersaldot." },
-  { title: "Ta betalt", text: "Kontant, kort, Swish, presentkort eller tillgodo. Beloppet kan delas på flera sätt. Rabatt sätts i procent eller kronor på korgen." },
-  { title: "Kvitto", text: "Kvittot skrivs ut när försäljningen är registrerad. Kunden ser korgen och totalen på kundskärmen." },
-];
-
-const more = [
-  { title: "Parkera köp", text: "Lägg undan en pågående korg och ta upp den när kunden kommer tillbaka." },
-  { title: "Retur", text: "Skanna kvittots streckkod, välj rader och återbetalningssätt. Lager läggs tillbaka för produkter." },
-  { title: "Presentkort", text: "Sälj ett belopp i kassan och lös in koden i betalningen." },
-  { title: "Växel", text: "Insättning och uttag i växelkassan sparas och syns på X- och Z-rapport." },
-  { title: "X-rapport", text: "Översikt av försäljning och betalningar under dagen, utan att låsa den." },
-  { title: "Z-rapport", text: "Dagsavslut. Dagen låses. Tidigare dagar ligger kvar i Z-historiken." },
-];
+const page = content.kassan;
 ---
 
-<Base
-  title="Kassan — Kassa På Plats"
-  description="Försäljning, kvitto, kundskärm, retur, presentkort och dagsavslut i samma butikskassa."
->
+<Base title={fyll(page.title)} description={fyll(page.description)}>
   <section class="mx-auto max-w-6xl px-5 pt-14">
-    <p class="text-sm font-semibold uppercase tracking-[0.16em] text-moss">Kassan</p>
-    <h1 class="mt-3 max-w-3xl text-4xl leading-tight sm:text-5xl">Från skanning till kvitto, på disken.</h1>
-    <p class="mt-5 max-w-2xl text-lg leading-8 text-muted">
-      Personalen arbetar i webbläsaren på kassadatorn. Samma flöde gäller vara och tjänst. Kontrollenheten måste svara innan försäljning, retur och kvittokopia registreras. Programmet är utformat enligt SKVFS 2021:17, de krav som gäller för kassaregister från 1 januari 2027,       och journalminnet kan exporteras som XML.
-    </p>
-    <a class="mt-4 inline-block text-sm font-semibold text-moss underline decoration-line underline-offset-4" href="/kraven">Kraven från 2027</a>
+    <p class="text-sm font-semibold uppercase tracking-[0.16em] text-moss">{fyll(page.eyebrow)}</p>
+    <h1 class="mt-3 max-w-3xl text-4xl leading-tight sm:text-5xl">{fyll(page.heading)}</h1>
+    <p class="mt-5 max-w-2xl text-lg leading-8 text-muted">{fyll(page.lead)}</p>
+    <a class="mt-4 inline-block text-sm font-semibold text-moss underline decoration-line underline-offset-4" href="/kraven">{fyll(page.rulesLink)}</a>
   </section>
 
   <section class="mx-auto grid max-w-6xl gap-4 px-5 pt-12 md:grid-cols-3">
     {
-      steps.map((step, index) => (
+      page.steps.map((step, index) => (
         <article class="rounded-3xl border border-line bg-card p-6">
           <p class="text-sm font-semibold tabular-nums text-clay">0{index + 1}</p>
-          <h2 class="mt-3 font-serif text-2xl">{step.title}</h2>
-          <p class="mt-3 text-sm leading-6 text-muted">{step.text}</p>
+          <h2 class="mt-3 font-serif text-2xl">{fyll(step.title)}</h2>
+          <p class="mt-3 text-sm leading-6 text-muted">{fyll(step.text)}</p>
         </article>
       ))
     }
   </section>
 
   <section class="mx-auto max-w-6xl px-5 pt-16">
-    <h2 class="text-3xl sm:text-4xl">Det som händer runt köpet</h2>
+    <h2 class="text-3xl sm:text-4xl">{fyll(page.moreHeading)}</h2>
     <ul class="mt-8 grid gap-4 sm:grid-cols-2">
       {
-        more.map((item) => (
+        page.more.map((item) => (
           <li class="rounded-3xl border border-line px-6 py-5">
-            <h3 class="font-serif text-xl">{item.title}</h3>
-            <p class="mt-2 text-sm leading-6 text-muted">{item.text}</p>
+            <h3 class="font-serif text-xl">{fyll(item.title)}</h3>
+            <p class="mt-2 text-sm leading-6 text-muted">{fyll(item.text)}</p>
           </li>
         ))
       }
     </ul>
-    <p class="mt-8 max-w-2xl text-sm leading-6 text-muted">
-      Inför bokslut stämmer en checklista av att dagarna har Z-rapport, att försäljningen matchar betalningarna och att inköp och inventering i perioden är klara.
-    </p>
-    <a class="btn mt-8" href="/boka">Boka visning</a>
+    <p class="mt-8 max-w-2xl text-sm leading-6 text-muted">{fyll(page.closing)}</p>
+    <a class="btn mt-8" href="/boka">{fyll(page.bookLabel)}</a>
   </section>
 </Base>

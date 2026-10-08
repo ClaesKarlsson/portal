@@ -1,53 +1,56 @@
 ---
 import Base from "../layouts/Base.astro";
-import { site } from "../data/site";
+import { content, fyll, site } from "../data/site";
+
+const page = content.boka;
 ---
 
-<Base
-  title="Boka visning — Kassa På Plats"
-  description="Boka en visning av butikskassan. Förfrågan öppnas i ditt e-postprogram."
->
+<Base title={fyll(page.title)} description={fyll(page.description)}>
   <section class="mx-auto grid max-w-6xl gap-12 px-5 pt-14 lg:grid-cols-[0.9fr_1.1fr]">
     <div>
-      <p class="text-sm font-semibold uppercase tracking-[0.16em] text-moss">Visning</p>
-      <h1 class="mt-3 text-4xl leading-tight sm:text-5xl">Boka en genomgång.</h1>
-      <p class="mt-5 text-lg leading-8 text-muted">
-        Vi går igenom försäljning, lager, dagsavslut och vilken utrustning som behövs på er disk. Visningen körs mot en demobutik.
-      </p>
+      <p class="text-sm font-semibold uppercase tracking-[0.16em] text-moss">{fyll(page.eyebrow)}</p>
+      <h1 class="mt-3 text-4xl leading-tight sm:text-5xl">{fyll(page.heading)}</h1>
+      <p class="mt-5 text-lg leading-8 text-muted">{fyll(page.lead)}</p>
       <p class="mt-6 text-sm leading-6 text-muted">
-        Formuläret öppnar ditt e-postprogram med texten ifylld, adresserat till {site.contactName}. Skicka mailet därifrån.
-        Det går också att ringa <a class="font-semibold text-ink underline decoration-line underline-offset-4" href={`tel:${site.contactPhoneHref}`}>{site.contactPhone}</a>.
+        {fyll(page.note)}{" "}
+        <a class="font-semibold text-ink underline decoration-line underline-offset-4" href={`tel:${site.contactPhoneHref}`}>{site.contactPhone}</a>.
       </p>
     </div>
 
-    <form class="rounded-[1.6rem] border border-line bg-card p-6 sm:p-8" data-booking data-email={site.contactEmail}>
+    <form
+      class="rounded-[1.6rem] border border-line bg-card p-6 sm:p-8"
+      data-booking
+      data-email={site.contactEmail}
+      data-subject={fyll(page.mailSubject)}
+      data-status={fyll(page.status)}
+    >
       <div class="grid gap-4 sm:grid-cols-2">
         <label class="block text-sm font-semibold">
-          Namn
-          <input class="field mt-1.5" name="namn" autocomplete="name" required />
+          {fyll(page.nameLabel)}
+          <input class="field mt-1.5" name="namn" data-label={fyll(page.nameLabel)} autocomplete="name" required />
         </label>
         <label class="block text-sm font-semibold">
-          Butik
-          <input class="field mt-1.5" name="butik" autocomplete="organization" required />
+          {fyll(page.shopLabel)}
+          <input class="field mt-1.5" name="butik" data-label={fyll(page.shopLabel)} autocomplete="organization" required />
         </label>
         <label class="block text-sm font-semibold">
-          Ort
-          <input class="field mt-1.5" name="ort" autocomplete="address-level2" required />
+          {fyll(page.placeLabel)}
+          <input class="field mt-1.5" name="ort" data-label={fyll(page.placeLabel)} autocomplete="address-level2" required />
         </label>
         <label class="block text-sm font-semibold">
-          Telefon
-          <input class="field mt-1.5" name="telefon" type="tel" autocomplete="tel" required />
+          {fyll(page.phoneLabel)}
+          <input class="field mt-1.5" name="telefon" data-label={fyll(page.phoneLabel)} type="tel" autocomplete="tel" required />
         </label>
       </div>
       <label class="mt-4 block text-sm font-semibold">
-        E-post
-        <input class="field mt-1.5" name="epost" type="email" autocomplete="email" required />
+        {fyll(page.emailLabel)}
+        <input class="field mt-1.5" name="epost" data-label={fyll(page.emailLabel)} type="email" autocomplete="email" required />
       </label>
       <label class="mt-4 block text-sm font-semibold">
-        Vad vill du se?
-        <textarea class="field mt-1.5 min-h-28" name="meddelande" placeholder="Till exempel kassa, lager eller en andra kassa."></textarea>
+        {fyll(page.messageLabel)}
+        <textarea class="field mt-1.5 min-h-28" name="meddelande" placeholder={fyll(page.messagePlaceholder)}></textarea>
       </label>
-      <button class="btn mt-6" type="submit">Öppna förfrågan i e-post</button>
+      <button class="btn mt-6" type="submit">{fyll(page.submitLabel)}</button>
       <p class="mt-4 text-sm text-moss" data-booking-status role="status"></p>
     </form>
   </section>
@@ -63,20 +66,16 @@ import { site } from "../data/site";
 
     const email = form.dataset.email ?? "";
     const data = new FormData(form);
-    const body = [
-      `Namn: ${data.get("namn") ?? ""}`,
-      `Butik: ${data.get("butik") ?? ""}`,
-      `Ort: ${data.get("ort") ?? ""}`,
-      `Telefon: ${data.get("telefon") ?? ""}`,
-      `E-post: ${data.get("epost") ?? ""}`,
-      "",
-      String(data.get("meddelande") ?? ""),
-    ].join("\n");
+    const lines = ["namn", "butik", "ort", "telefon", "epost"].map((name) => {
+      const field = form.elements.namedItem(name);
+      const label = field instanceof HTMLInputElement ? (field.dataset.label ?? name) : name;
+      return `${label}: ${data.get(name) ?? ""}`;
+    });
+    const body = [...lines, "", String(data.get("meddelande") ?? "")].join("\n");
 
-    if (status) {
-      status.textContent = "E-postprogrammet öppnas med förfrågan. Skicka mailet därifrån.";
-    }
+    if (status) status.textContent = form.dataset.status ?? "";
 
-    window.location.href = `mailto:${email}?subject=${encodeURIComponent("Visning av butikskassan")}&body=${encodeURIComponent(body)}`;
+    const subject = form.dataset.subject ?? "";
+    window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   });
 </script>

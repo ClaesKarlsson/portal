@@ -1,35 +1,25 @@
 ---
 import Base from "../layouts/Base.astro";
+import { content, fyll } from "../data/site";
 
-const pack = [
-  { title: "Kassadator", text: "MiniPC med programmet installerat. Kassa och administration körs i webbläsaren på samma dator." },
-  { title: "Kvittoskrivare", text: "ESC/POS-skrivare. Kvittot skrivs ut när försäljningen är registrerad." },
-  { title: "Kassalåda", text: "Öppnas vid kontant betalning och när någon öppnar lådan medvetet, till exempel för växel." },
-  { title: "Kundskärm", text: "En andra skärm mot kunden med varukorg och total. Den följer med efter inloggning i kassan." },
-  { title: "Streckkodsläsare", text: "Skannar vara, tjänst och kvittots kod vid retur." },
-];
+const page = content.utrustning;
 ---
 
-<Base
-  title="Utrustning — Kassa På Plats"
-  description="Kassapaket med dator, kvittoskrivare, kassalåda, kundskärm och streckkodsläsare, plus CleanCash Typ A."
->
+<Base title={fyll(page.title)} description={fyll(page.description)}>
   <section class="mx-auto max-w-6xl px-5 pt-14">
-    <p class="text-sm font-semibold uppercase tracking-[0.16em] text-moss">Utrustning</p>
-    <h1 class="mt-3 max-w-3xl text-4xl leading-tight sm:text-5xl">Det som står på disken.</h1>
-    <p class="mt-5 max-w-2xl text-lg leading-8 text-muted">
-      Kassapaketet är datorn och det kassan behöver för att ta betalt och skriva kvitto. Kontrollenheten är en egen, obligatorisk del. Etikettskrivare och kortterminal läggs till när butiken behöver dem.
-    </p>
+    <p class="text-sm font-semibold uppercase tracking-[0.16em] text-moss">{fyll(page.eyebrow)}</p>
+    <h1 class="mt-3 max-w-3xl text-4xl leading-tight sm:text-5xl">{fyll(page.heading)}</h1>
+    <p class="mt-5 max-w-2xl text-lg leading-8 text-muted">{fyll(page.lead)}</p>
   </section>
 
   <section class="mx-auto max-w-6xl px-5 pt-12">
-    <h2 class="text-3xl">Kassapaketet</h2>
+    <h2 class="text-3xl">{fyll(page.packHeading)}</h2>
     <ul class="mt-6 divide-y divide-line rounded-3xl border border-line bg-card">
       {
-        pack.map((item) => (
+        page.pack.map((item) => (
           <li class="grid gap-1 px-6 py-5 sm:grid-cols-[12rem_1fr] sm:gap-6">
-            <h3 class="font-serif text-xl">{item.title}</h3>
-            <p class="text-sm leading-6 text-muted">{item.text}</p>
+            <h3 class="font-serif text-xl">{fyll(item.title)}</h3>
+            <p class="text-sm leading-6 text-muted">{fyll(item.text)}</p>
           </li>
         ))
       }
@@ -38,28 +28,22 @@ const pack = [
 
   <section class="mx-auto grid max-w-6xl gap-4 px-5 pt-8 lg:grid-cols-3">
     <article class="rounded-3xl bg-ink p-6 text-paper lg:col-span-2">
-      <p class="text-xs font-semibold uppercase tracking-[0.16em] text-paper/60">Obligatorisk, en per kassa</p>
-      <h2 class="mt-3 text-3xl">Kontrollenhet</h2>
-      <p class="mt-4 max-w-xl leading-7 text-paper/80">
-        CleanCash Typ A kopplas till kassadatorn. Enheten är certifierad, certifikat CU1001. Försäljning, retur och kvittokopia registreras när enheten svarar och lämnar kontrollkod. Certifieringen är det krav Skatteverket ställer på kontrollenheten, även när kassaregistret från 2027 ska uppfylla SKVFS 2021:17.
-      </p>
+      <p class="text-xs font-semibold uppercase tracking-[0.16em] text-paper/60">{fyll(page.unitEyebrow)}</p>
+      <h2 class="mt-3 text-3xl">{fyll(page.unitHeading)}</h2>
+      <p class="mt-4 max-w-xl leading-7 text-paper/80">{fyll(page.unitText)}</p>
     </article>
     <article class="rounded-3xl border border-line bg-card p-6">
-      <p class="text-xs font-semibold uppercase tracking-[0.16em] text-clay">Tillval</p>
-      <h2 class="mt-3 font-serif text-2xl">Etikettskrivare</h2>
-      <p class="mt-3 text-sm leading-6 text-muted">
-        För streckkodsetiketter. Utan den skrivs etiketterna ut via webbläsarens utskriftsdialog.
-      </p>
+      <p class="text-xs font-semibold uppercase tracking-[0.16em] text-clay">{fyll(page.labelEyebrow)}</p>
+      <h2 class="mt-3 font-serif text-2xl">{fyll(page.labelHeading)}</h2>
+      <p class="mt-3 text-sm leading-6 text-muted">{fyll(page.labelText)}</p>
     </article>
   </section>
 
   <section class="mx-auto max-w-6xl px-5 pt-8">
     <article class="rounded-3xl border border-line px-6 py-6 sm:px-8">
-      <h2 class="font-serif text-2xl">Kortterminal</h2>
-      <p class="mt-3 max-w-2xl text-sm leading-6 text-muted">
-        Kort finns som betalningssätt i kassan. Terminalen väljs till butiken och ingår inte i kassapaketet. Kontant, Swish, presentkort och tillgodo används oavsett terminal.
-      </p>
+      <h2 class="font-serif text-2xl">{fyll(page.terminalHeading)}</h2>
+      <p class="mt-3 max-w-2xl text-sm leading-6 text-muted">{fyll(page.terminalText)}</p>
     </article>
-    <a class="btn mt-8" href="/pris">Se prisupplägget</a>
+    <a class="btn mt-8" href="/pris">{fyll(page.priceLink)}</a>
   </section>
 </Base>

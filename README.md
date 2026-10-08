@@ -16,7 +16,11 @@ npm run dev
 
 ## Ändra innehåll
 
-Priser, telefon och e-post ligger i `src/data/site.ts`. Ett tomt pris (`null`) visas som "Pris vid visning". Sätt ett tal i kronor när priset är bestämt, till exempel `programMonthly: 1500`.
+Kör `npm run dev` och öppna http://localhost:4321/redigera. Formuläret sparar texterna i `src/data/content.json`. Sidan finns bara på den lokala datorn, inte i den publicerade sajten.
+
+Ett tomt pris visas som texten "Pris vid visning", tills du fyller i ett belopp i kronor. I löpande text kan du skriva `{foretag}`, `{produkt}`, `{namn}`, `{epost}`, `{telefon}` och `{ort}`. De byts ut mot uppgifterna under Kontakt.
+
+Den publika sajten ändras först när du publicerar, som nedan.
 
 ## Publicera
 

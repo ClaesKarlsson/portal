@@ -1,41 +1,23 @@
 ---
 import Base from "../layouts/Base.astro";
-import { site } from "../data/site";
+import { content, fyll } from "../data/site";
 
-const points = [
-  {
-    title: "Kassaregistret",
-    text: "Programmet ska uppfylla Skatteverkets föreskrifter om krav på kassaregister, SKVFS 2021:17. Det omfattar bland annat kvitto, kontrollkod och att försäljning, retur och kvittokopia inte registreras när kontrollenheten inte svarar.",
-  },
-  {
-    title: "Journalen som XML",
-    text: "Ett kassaregister med journalminne ska kunna lämna registreringarna som XML enligt SKVFS 2021:16. Filen är det format Skatteverket använder när uppgifterna ska tas ut.",
-  },
-  {
-    title: "Certifierad kontrollenhet",
-    text: "Kassan ska vara kopplad till en certifierad kontrollenhet. Certifikatet gäller enheten. Skatteverket testar inte kassaprogrammet. Tillverkaren deklarerar att programversionen är testad och uppfyller föreskriften.",
-  },
-];
+const page = content.kraven;
 ---
 
-<Base
-  title={`Kraven från 2027 — ${site.name}`}
-  description="Från 1 januari 2027 ska kassaregistret uppfylla SKVFS 2021:17, med XML-export av journalminnet och en certifierad kontrollenhet."
->
+<Base title={fyll(page.title)} description={fyll(page.description)}>
   <section class="mx-auto max-w-6xl px-5 pt-14">
-    <p class="text-sm font-semibold uppercase tracking-[0.16em] text-moss">1 januari 2027</p>
-    <h1 class="mt-3 max-w-3xl text-4xl leading-tight sm:text-5xl">Kassan är byggd för kraven som gäller då.</h1>
-    <p class="mt-5 max-w-2xl text-lg leading-8 text-muted">
-      Från den 1 januari 2027 ska ett kassaregister som används i Sverige uppfylla SKVFS 2021:17. Har det journalminne ska registreringarna kunna tas ut som XML. {site.product} är utformad och testad enligt den föreskriften, tillsammans med en certifierad kontrollenhet.
-    </p>
+    <p class="text-sm font-semibold uppercase tracking-[0.16em] text-moss">{fyll(page.eyebrow)}</p>
+    <h1 class="mt-3 max-w-3xl text-4xl leading-tight sm:text-5xl">{fyll(page.heading)}</h1>
+    <p class="mt-5 max-w-2xl text-lg leading-8 text-muted">{fyll(page.lead)}</p>
   </section>
 
   <section class="mx-auto grid max-w-6xl gap-4 px-5 pt-12 md:grid-cols-3">
     {
-      points.map((point) => (
+      page.points.map((point) => (
         <article class="rounded-3xl border border-line bg-card p-6">
-          <h2 class="font-serif text-2xl">{point.title}</h2>
-          <p class="mt-3 text-sm leading-6 text-muted">{point.text}</p>
+          <h2 class="font-serif text-2xl">{fyll(point.title)}</h2>
+          <p class="mt-3 text-sm leading-6 text-muted">{fyll(point.text)}</p>
         </article>
       ))
     }
@@ -43,28 +25,22 @@ const points = [
 
   <section class="mx-auto grid max-w-6xl gap-4 px-5 pt-8 lg:grid-cols-2">
     <article class="rounded-3xl bg-ink p-6 text-paper sm:p-8">
-      <p class="text-xs font-semibold uppercase tracking-[0.16em] text-paper/60">Kassaprogrammet</p>
-      <h2 class="mt-3 text-3xl">{site.product}</h2>
-      <p class="mt-4 leading-7 text-paper/80">
-        Versionen är utformad och testad enligt SKVFS 2014:9 i den lydelse som gäller genom SKVFS 2021:17. Journalminnet kan exporteras som XML. Det är det kravet som styr kassaregister från 2027.
-      </p>
+      <p class="text-xs font-semibold uppercase tracking-[0.16em] text-paper/60">{fyll(page.programEyebrow)}</p>
+      <h2 class="mt-3 text-3xl">{fyll(page.programHeading)}</h2>
+      <p class="mt-4 leading-7 text-paper/80">{fyll(page.programText)}</p>
     </article>
     <article class="rounded-3xl bg-moss p-6 text-paper sm:p-8">
-      <p class="text-xs font-semibold uppercase tracking-[0.16em] text-paper/70">Kontrollenheten</p>
-      <h2 class="mt-3 text-3xl">CleanCash Typ A</h2>
-      <p class="mt-4 leading-7 text-paper/85">
-        Enheten är certifierad, certifikat CU1001. En certifierad kontrollenhet är det krav Skatteverket ställer på den enhet som tar emot kontrollkoden. En enhet per kassa.
-      </p>
+      <p class="text-xs font-semibold uppercase tracking-[0.16em] text-paper/70">{fyll(page.unitEyebrow)}</p>
+      <h2 class="mt-3 text-3xl">{fyll(page.unitHeading)}</h2>
+      <p class="mt-4 leading-7 text-paper/85">{fyll(page.unitText)}</p>
     </article>
   </section>
 
   <section class="mx-auto max-w-6xl px-5 pt-12">
     <div class="max-w-2xl rounded-3xl border border-line px-6 py-6 sm:px-8">
-      <h2 class="font-serif text-2xl">Vad butiken gör</h2>
-      <p class="mt-3 text-sm leading-7 text-muted">
-        Butiken anmäler kassaregistret hos Skatteverket när det tas i bruk: program, version, kassabeteckning och kontrollenhetens tillverkningsnummer. Anmälan är butikens, och den är skild från tillverkarens deklaration av programmet.
-      </p>
+      <h2 class="font-serif text-2xl">{fyll(page.shopHeading)}</h2>
+      <p class="mt-3 text-sm leading-7 text-muted">{fyll(page.shopText)}</p>
     </div>
-    <a class="btn mt-8" href="/boka">Boka visning</a>
+    <a class="btn mt-8" href="/boka">{fyll(page.bookLabel)}</a>
   </section>
 </Base>

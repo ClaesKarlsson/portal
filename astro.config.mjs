@@ -1,5 +1,6 @@
 import { defineConfig } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
+import { redigera } from "./src/editor/plugin.js";
 
 export default defineConfig({
   site: "https://kassapaplats.se",
@@ -8,6 +9,6 @@ export default defineConfig({
     enabled: false,
   },
   vite: {
-    plugins: [tailwindcss()],
+    plugins: [tailwindcss(), redigera()],
   },
 });

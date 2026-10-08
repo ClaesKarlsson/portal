@@ -1,80 +1,38 @@
 ---
 import Base from "../layouts/Base.astro";
 import RegisterSketch from "../components/RegisterSketch.astro";
-import { kronor, site } from "../data/site";
+import { content, fyll, kronor, priceKeys, site } from "../data/site";
 
-const flows = [
-  {
-    n: "01",
-    title: "Sälja",
-    text: "Skanna varan eller tjänsten, ta betalt och skriv ut kvittot. Korgen kan parkeras om kunden går och kommer tillbaka.",
-    href: "/kassan",
-  },
-  {
-    n: "02",
-    title: "Hålla lagret sant",
-    text: "Försäljning minskar saldot, retur lägger tillbaka och ett låst inköp ökar lagret. Inventering görs i en session.",
-    href: "/lager",
-  },
-  {
-    n: "03",
-    title: "Stänga dagen",
-    text: "Z-rapporten låser dagen. Bokslutskontrollen stämmer försäljningen mot kontant, kort, Swish, presentkort och tillgodo.",
-    href: "/kassan",
-  },
-];
-
-const offer = [
-  {
-    title: "Program",
-    price: kronor(site.prices.programMonthly, "/ mån"),
-    text: "Kassa, kundskärm, lager, inköp, presentkort, streckkoder och dagsavslut. Uppdateringar och support ingår.",
-  },
-  {
-    title: "Kassapaket",
-    price: kronor(site.prices.kassapaket, "engång"),
-    text: "Kassadator med programmet installerat, kvittoskrivare, kassalåda, kundskärm och streckkodsläsare. Installation i butiken ingår.",
-  },
-  {
-    title: "Kontrollenhet",
-    price: kronor(site.prices.kontrollenhet, "per kassa"),
-    text: "CleanCash Typ A, en per kassa. Certifierad kontrollenhet från annan tillverkare. Obligatorisk till kassan.",
-  },
-];
+const page = content.home;
+const flowHrefs = ["/kassan", "/lager", "/kassan"];
 ---
 
-<Base
-  title={`${site.name} — kassa och lager för butiken`}
-  description="Butikskassa med lager, inköp och dagsavslut. Program, kassadator och utrustning installeras i butiken."
->
+<Base title={fyll(page.title)} description={fyll(page.description)}>
   <section class="mx-auto grid max-w-6xl items-center gap-12 px-5 pt-14 lg:grid-cols-[1.05fr_0.95fr] lg:pt-20">
     <div>
-      <p class="text-sm font-semibold uppercase tracking-[0.16em] text-moss">För svensk butik</p>
-      <h1 class="mt-3 text-4xl leading-[1.05] sm:text-6xl">Kassa och lager för butiken, installerat på plats.</h1>
-      <p class="mt-6 max-w-xl text-lg leading-8 text-muted">
-        Programmet körs på en dator i butiken. Kvittoskrivare, kassalåda, kundskärm och kontrollenhet sitter på disken.
-        Du får det installerat, med genomgång för den som står i kassan.
-      </p>
+      <p class="text-sm font-semibold uppercase tracking-[0.16em] text-moss">{fyll(page.eyebrow)}</p>
+      <h1 class="mt-3 text-4xl leading-[1.05] sm:text-6xl">{fyll(page.heading)}</h1>
+      <p class="mt-6 max-w-xl text-lg leading-8 text-muted">{fyll(page.lead)}</p>
       <div class="mt-8 flex flex-wrap gap-3">
-        <a class="btn" href="/boka">Boka visning</a>
-        {site.demoUrl ? <a class="btn-secondary" href={site.demoUrl}>Prova kassan</a> : null}
-        <a class="btn-secondary" href="/utrustning">Se utrustningen</a>
+        <a class="btn" href="/boka">{fyll(page.bookLabel)}</a>
+        {site.demoUrl ? <a class="btn-secondary" href={site.demoUrl}>{fyll(page.demoLabel)}</a> : null}
+        <a class="btn-secondary" href="/utrustning">{fyll(page.equipmentLabel)}</a>
       </div>
     </div>
     <RegisterSketch />
   </section>
 
   <section class="mx-auto max-w-6xl px-5 pt-20">
-    <h2 class="max-w-xl text-3xl leading-tight sm:text-4xl">Tre saker personalen gör varje dag</h2>
+    <h2 class="max-w-xl text-3xl leading-tight sm:text-4xl">{fyll(page.flowsHeading)}</h2>
     <ol class="mt-8 grid gap-4 md:grid-cols-3">
       {
-        flows.map((flow) => (
+        page.flows.map((flow, index) => (
           <li class="rounded-3xl border border-line bg-card p-6">
-            <p class="text-sm font-semibold tabular-nums text-clay">{flow.n}</p>
-            <h3 class="mt-3 font-serif text-2xl">{flow.title}</h3>
-            <p class="mt-3 text-sm leading-6 text-muted">{flow.text}</p>
-            <a class="mt-5 inline-block text-sm font-semibold text-moss underline decoration-line underline-offset-4" href={flow.href}>
-              Läs mer
+            <p class="text-sm font-semibold tabular-nums text-clay">{String(index + 1).padStart(2, "0")}</p>
+            <h3 class="mt-3 font-serif text-2xl">{fyll(flow.title)}</h3>
+            <p class="mt-3 text-sm leading-6 text-muted">{fyll(flow.text)}</p>
+            <a class="mt-5 inline-block text-sm font-semibold text-moss underline decoration-line underline-offset-4" href={flowHrefs[index]}>
+              {fyll(page.flowsMore)}
             </a>
           </li>
         ))
@@ -84,73 +42,56 @@ const offer = [
 
   <section class="mx-auto grid max-w-6xl gap-8 px-5 pt-20 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
     <div>
-      <h2 class="text-3xl leading-tight sm:text-4xl">Det stannar i butiken</h2>
-      <p class="mt-4 text-lg leading-8 text-muted">
-        Varje butik har egen kassadator, egen databas och egen kontrollenhet. Kvittot skrivs ut på plats.
-        Programmet är utformat enligt kraven som gäller från 2027 och kopplas till en certifierad kontrollenhet.
-      </p>
+      <h2 class="text-3xl leading-tight sm:text-4xl">{fyll(page.localHeading)}</h2>
+      <p class="mt-4 text-lg leading-8 text-muted">{fyll(page.localLead)}</p>
     </div>
     <ul class="grid gap-3 sm:grid-cols-2">
-      <li class="rounded-2xl bg-moss px-5 py-4 text-paper">
-        <p class="font-serif text-xl">Egen installation</p>
-        <p class="mt-1 text-sm leading-6 text-paper/80">Ett org.nr, en butik, en kontrollenhet per kassa.</p>
-      </li>
-      <li class="rounded-2xl border border-line bg-card px-5 py-4">
-        <p class="font-serif text-xl">Betalning i kassan</p>
-        <p class="mt-1 text-sm leading-6 text-muted">Kontant, kort, Swish, presentkort och tillgodo. Beloppet kan delas på flera betalsätt.</p>
-      </li>
-      <li class="rounded-2xl border border-line bg-card px-5 py-4">
-        <p class="font-serif text-xl">Vara och tjänst</p>
-        <p class="mt-1 text-sm leading-6 text-muted">En tjänst, till exempel lagning, säljs i kassan utan att lagret rör sig.</p>
-      </li>
-      <li class="rounded-2xl border border-line bg-card px-5 py-4">
-        <p class="font-serif text-xl">På plats</p>
-        <p class="mt-1 text-sm leading-6 text-muted">{site.contactName} installerar paketet och går igenom kassan med personalen.</p>
-      </li>
+      {
+        page.localCards.map((card, index) => (
+          <li class:list={["rounded-2xl px-5 py-4", index === 0 ? "bg-moss text-paper" : "border border-line bg-card"]}>
+            <p class="font-serif text-xl">{fyll(card.title)}</p>
+            <p class:list={["mt-1 text-sm leading-6", index === 0 ? "text-paper/80" : "text-muted"]}>{fyll(card.text)}</p>
+          </li>
+        ))
+      }
     </ul>
   </section>
 
   <section class="mx-auto max-w-6xl px-5 pt-20">
     <div class="rounded-[2rem] border border-line bg-card px-6 py-8 sm:px-10">
-      <p class="text-sm font-semibold uppercase tracking-[0.16em] text-moss">1 januari 2027</p>
-      <h2 class="mt-3 max-w-2xl text-3xl leading-tight sm:text-4xl">Kassan följer kraven som gäller då.</h2>
-      <p class="mt-4 max-w-2xl leading-7 text-muted">
-        Från det datumet ska kassaregistret uppfylla SKVFS 2021:17, och journalminnet ska kunna lämnas som XML. {site.product} är utformad och testad för det. Kontrollenheten är certifierad CleanCash Typ A, certifikat CU1001.
-      </p>
+      <p class="text-sm font-semibold uppercase tracking-[0.16em] text-moss">{fyll(page.rulesEyebrow)}</p>
+      <h2 class="mt-3 max-w-2xl text-3xl leading-tight sm:text-4xl">{fyll(page.rulesHeading)}</h2>
+      <p class="mt-4 max-w-2xl leading-7 text-muted">{fyll(page.rulesText)}</p>
       <a class="mt-6 inline-block text-sm font-semibold text-moss underline decoration-line underline-offset-4" href="/kraven">
-        Vad kraven betyder
+        {fyll(page.rulesLink)}
       </a>
     </div>
   </section>
 
   <section class="mx-auto max-w-6xl px-5 pt-20">
     <div class="flex flex-wrap items-end justify-between gap-4">
-      <h2 class="text-3xl leading-tight sm:text-4xl">Det du köper</h2>
-      <a class="text-sm font-semibold text-moss underline decoration-line underline-offset-4" href="/pris">Prisupplägg</a>
+      <h2 class="text-3xl leading-tight sm:text-4xl">{fyll(page.buyHeading)}</h2>
+      <a class="text-sm font-semibold text-moss underline decoration-line underline-offset-4" href="/pris">{fyll(page.buyLink)}</a>
     </div>
-    <div class="mt-8 grid gap-4 md:grid-cols-3">
+    <div class="mt-8 grid gap-4 sm:grid-cols-2">
       {
-        offer.map((item) => (
+        page.offer.map((item, index) => (
           <article class="rounded-3xl border border-line bg-card p-6">
-            <h3 class="font-serif text-2xl">{item.title}</h3>
-            <p class="mt-2 text-sm font-semibold text-clay">{item.price}</p>
-            <p class="mt-3 text-sm leading-6 text-muted">{item.text}</p>
+            <h3 class="font-serif text-2xl">{fyll(item.title)}</h3>
+            <p class="mt-2 text-sm font-semibold text-clay">{kronor(site.prices[priceKeys[index]], item.suffix)}</p>
+            <p class="mt-3 text-sm leading-6 text-muted">{fyll(item.text)}</p>
           </article>
         ))
       }
     </div>
-    <p class="mt-6 text-sm text-muted">
-      Etikettskrivare är tillval. Kortterminal väljs till butiken och ingår inte i kassapaketet.
-    </p>
+    <p class="mt-6 text-sm text-muted">{fyll(page.buyNote)}</p>
   </section>
 
   <section class="mx-auto max-w-6xl px-5 pt-20">
     <div class="rounded-[2rem] bg-ink px-6 py-10 text-paper sm:px-10">
-      <h2 class="max-w-xl text-3xl leading-tight sm:text-4xl">Se kassan med era varor i tanken.</h2>
-      <p class="mt-4 max-w-xl text-paper/75">
-        Visningen görs mot en demobutik. Boka tid, så går vi igenom försäljning, lager och dagsavslut.
-      </p>
-      <a class="btn-light mt-8" href="/boka">Boka visning</a>
+      <h2 class="max-w-xl text-3xl leading-tight sm:text-4xl">{fyll(page.ctaHeading)}</h2>
+      <p class="mt-4 max-w-xl text-paper/75">{fyll(page.ctaText)}</p>
+      <a class="btn-light mt-8" href="/boka">{fyll(page.ctaLabel)}</a>
     </div>
   </section>
 </Base>

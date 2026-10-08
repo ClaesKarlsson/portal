@@ -1,33 +1,23 @@
 ---
 import Base from "../layouts/Base.astro";
-import { site } from "../data/site";
+import { content, fyll, site } from "../data/site";
 
-const items = [
-  { title: "Installation", text: "Dator, skrivare, låda, kundskärm, läsare och kontrollenhet ställs in i butiken. Programmet ligger på kassadatorn när vi lämnar." },
-  { title: "Genomgång", text: "Den som står i kassan får sälja, ta retur, parkera en korg och se hur dagen stängs." },
-  { title: "Uppdateringar", text: "Nya versioner av programmet ingår i månadsavgiften och läggs in på er kassadator." },
-  { title: "När något strular", text: "Skrivare, kvitto och kontrollenhet felsöks av den som installerade kassan. När kontrollenheten inte svarar ska ingen ny försäljning registreras förrän den svarar igen." },
-];
+const page = content.support;
 ---
 
-<Base
-  title="Support — Kassa På Plats"
-  description="Installation i butiken, genomgång med personalen och hjälp när kassa eller kontrollenhet strular."
->
+<Base title={fyll(page.title)} description={fyll(page.description)}>
   <section class="mx-auto max-w-6xl px-5 pt-14">
-    <p class="text-sm font-semibold uppercase tracking-[0.16em] text-moss">Support</p>
-    <h1 class="mt-3 max-w-3xl text-4xl leading-tight sm:text-5xl">Samma person installerar och svarar sedan.</h1>
-    <p class="mt-5 max-w-2xl text-lg leading-8 text-muted">
-      {site.contactName} sätter upp kassan och är den du ringer när den inte beter sig. Varje butik är en egen installation.
-    </p>
+    <p class="text-sm font-semibold uppercase tracking-[0.16em] text-moss">{fyll(page.eyebrow)}</p>
+    <h1 class="mt-3 max-w-3xl text-4xl leading-tight sm:text-5xl">{fyll(page.heading)}</h1>
+    <p class="mt-5 max-w-2xl text-lg leading-8 text-muted">{fyll(page.lead)}</p>
   </section>
 
   <section class="mx-auto grid max-w-6xl gap-4 px-5 pt-12 md:grid-cols-2">
     {
-      items.map((item) => (
+      page.items.map((item) => (
         <article class="rounded-3xl border border-line bg-card p-6">
-          <h2 class="font-serif text-2xl">{item.title}</h2>
-          <p class="mt-3 text-sm leading-6 text-muted">{item.text}</p>
+          <h2 class="font-serif text-2xl">{fyll(item.title)}</h2>
+          <p class="mt-3 text-sm leading-6 text-muted">{fyll(item.text)}</p>
         </article>
       ))
     }
@@ -35,15 +25,15 @@ const items = [
 
   <section class="mx-auto max-w-6xl px-5 pt-12">
     <div class="rounded-[2rem] border border-line px-6 py-8 sm:px-8">
-      <h2 class="text-3xl">Kontakt</h2>
-      <p class="mt-4 text-muted">För visning, pris eller ett fel i en kassa som redan är igång.</p>
+      <h2 class="text-3xl">{fyll(page.contactHeading)}</h2>
+      <p class="mt-4 text-muted">{fyll(page.contactText)}</p>
       <p class="mt-4 text-lg">
         <a class="font-semibold underline decoration-line underline-offset-4" href={`tel:${site.contactPhoneHref}`}>{site.contactPhone}</a>
       </p>
       <p class="mt-1">
         <a class="underline decoration-line underline-offset-4" href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a>
       </p>
-      <a class="btn mt-6" href="/boka">Boka visning</a>
+      <a class="btn mt-6" href="/boka">{fyll(page.bookLabel)}</a>
     </div>
   </section>
 </Base>

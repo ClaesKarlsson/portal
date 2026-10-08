@@ -1,0 +1,412 @@
+{
+  "contact": {
+    "name": "Kassa På Plats",
+    "product": "Kassa På Plats",
+    "place": "Varberg",
+    "description": "Butikskassa med lager, inköp och dagsavslut. Programmet körs på en dator i butiken, tillsammans med kvittoskrivare, kundskärm och kontrollenhet.",
+    "contactName": "Kassa På Plats",
+    "contactEmail": "kassapaplats@telia.com",
+    "contactPhone": "0734-020017",
+    "demoUrl": "https://demo.kassapaplats.se"
+  },
+  "prices": {
+    "missing": "Pris vid visning",
+    "programMonthly": null,
+    "kassapaket": null,
+    "kontrollenhet": null,
+    "betalterminal": null
+  },
+  "chrome": {
+    "tagline": "Butikskassa",
+    "menuLabel": "Meny",
+    "bookLabel": "Boka visning",
+    "navLabel": "Huvudmeny",
+    "skipLabel": "Hoppa till innehåll",
+    "nav": [
+      {
+        "label": "Kassan"
+      },
+      {
+        "label": "Kraven 2027"
+      },
+      {
+        "label": "Lager"
+      },
+      {
+        "label": "Utrustning"
+      },
+      {
+        "label": "Pris"
+      },
+      {
+        "label": "Support"
+      }
+    ],
+    "footerLead": "Butikskassa med lager, inköp och dagsavslut. Installeras i butiken av {foretag}.",
+    "privacyLabel": "Integritet"
+  },
+  "home": {
+    "title": "{foretag} — kassa och lager för butiken",
+    "description": "Butikskassa med lager, inköp och dagsavslut. Program, kassadator och utrustning installeras i butiken.",
+    "eyebrow": "För svensk butik",
+    "heading": "Kassa och lager för butiken, installerat på plats.",
+    "lead": "Programmet körs på en dator i butiken. Kvittoskrivare, kassalåda, kundskärm och kontrollenhet sitter på disken. Du får det installerat, med genomgång för den som står i kassan.",
+    "bookLabel": "Boka visning",
+    "demoLabel": "Prova kassan",
+    "equipmentLabel": "Se utrustningen",
+    "flowsHeading": "Tre saker personalen gör varje dag",
+    "flowsMore": "Läs mer",
+    "flows": [
+      {
+        "title": "Sälja/Återköp",
+        "text": "Skanna varan eller tjänsten, ta betalt och skriv ut kvittot. Korgen kan parkeras om kunden går och kommer tillbaka. Återköp av produkt kan ske"
+      },
+      {
+        "title": "Hålla lagret sant",
+        "text": "Försäljning minskar saldot, retur lägger tillbaka och ett låst inköp ökar lagret. Inventering görs i en session."
+      },
+      {
+        "title": "Stänga dagen",
+        "text": "Z-rapporten låser dagen. Bokslutskontrollen stämmer försäljningen mot kontant, kort, Swish, presentkort och tillgodo."
+      }
+    ],
+    "localHeading": "Det stannar i butiken",
+    "localLead": "Varje butik har egen kassadator, egen databas och egen kontrollenhet. Kvittot skrivs ut på plats. Programmet är utformat enligt kraven som gäller från 2027 och kopplas till en certifierad kontrollenhet.",
+    "localCards": [
+      {
+        "title": "Egen installation",
+        "text": "Ett org.nr, en butik, en kontrollenhet per kassa."
+      },
+      {
+        "title": "Betalning i kassan",
+        "text": "Kontant, kort, Swish, presentkort och tillgodo. Beloppet kan delas på flera betalsätt."
+      },
+      {
+        "title": "Vara och tjänst",
+        "text": "En tjänst, till exempel lagning, säljs i kassan utan att lagret rör sig."
+      },
+      {
+        "title": "På plats",
+        "text": "{foretag} installerar paketet och går igenom kassan med personalen."
+      }
+    ],
+    "rulesEyebrow": "1 januari 2027",
+    "rulesHeading": "Kassan följer kraven som gäller då.",
+    "rulesText": "Från det datumet ska kassaregistret uppfylla SKVFS 2021:17, och journalminnet ska kunna lämnas som XML. {produkt} är utformad och testad för det. Kontrollenheten är certifierad CleanCash Typ A, certifikat CU1001.",
+    "rulesLink": "Vad kraven betyder",
+    "buyHeading": "Det du köper",
+    "buyLink": "Prisupplägg",
+    "offer": [
+      {
+        "title": "Program",
+        "suffix": "/ mån",
+        "text": "Kassa, kundskärm, lager, inköp, presentkort, streckkoder och dagsavslut. Uppdateringar och support ingår."
+      },
+      {
+        "title": "Kassapaket",
+        "suffix": "engång",
+        "text": "Kassadator med programmet installerat, kvittoskrivare, kassalåda, kundskärm och streckkodsläsare. Installation i butiken ingår."
+      },
+      {
+        "title": "Kontrollenhet",
+        "suffix": "per kassa",
+        "text": "CleanCash Typ A, en per kassa. Certifierad kontrollenhet från annan tillverkare. Obligatorisk till kassan."
+      },
+      {
+        "title": "Betalterminal",
+        "suffix": "per kassa",
+        "text": "Kortterminal från Nets, en per kassa. Kassan skickar kortbeloppet till terminalen. Ingår inte i kassapaketet."
+      }
+    ],
+    "buyNote": "Etikettskrivare är tillval. Betalterminalen från Nets offereras per kassa.",
+    "ctaHeading": "Se kassan med era varor i tanken.",
+    "ctaText": "Visningen görs mot en demobutik. Boka tid, så går vi igenom försäljning, lager och dagsavslut.",
+    "ctaLabel": "Boka visning",
+    "sketch": {
+      "kicker": "Kassa",
+      "badge": "Skiss",
+      "lines": [
+        {
+          "name": "Skjorta",
+          "note": "",
+          "amount": "349 kr"
+        },
+        {
+          "name": "Lagning",
+          "note": "tjänst",
+          "amount": "220 kr"
+        },
+        {
+          "name": "Påse",
+          "note": "",
+          "amount": "2 kr"
+        }
+      ],
+      "dueLabel": "Att betala",
+      "dueAmount": "571 kr",
+      "payments": [
+        "Kontant",
+        "Kort",
+        "Swish",
+        "Presentkort"
+      ],
+      "screenLabel": "Kundskärm",
+      "screenAmount": "571 kr",
+      "screenNote": "3 rader i korgen",
+      "caption": "Förenklad skiss av kassan. Ingen skärmdump från en butik."
+    }
+  },
+  "kassan": {
+    "title": "Kassan — {foretag}",
+    "description": "Försäljning, kvitto, kundskärm, retur, presentkort och dagsavslut i samma butikskassa.",
+    "eyebrow": "Kassan",
+    "heading": "Från skanning till kvitto, på disken.",
+    "lead": "Personalen arbetar i webbläsaren på kassadatorn. Samma flöde gäller vara och tjänst. Kontrollenheten måste svara innan försäljning, retur och kvittokopia registreras. Programmet är utformat enligt SKVFS 2021:17, de krav som gäller för kassaregister från 1 januari 2027, och journalminnet kan exporteras som XML.",
+    "rulesLink": "Kraven från 2027",
+    "steps": [
+      {
+        "title": "Skanna",
+        "text": "Vara, tjänst eller manuell rad. Återkommande jobb, till exempel lagning, ligger som tjänst och påverkar inte lagersaldot."
+      },
+      {
+        "title": "Ta betalt",
+        "text": "Kontant, kort, Swish, presentkort eller tillgodo. Kort skickas till en betalterminal från Nets. Beloppet kan delas på flera sätt. Rabatt sätts i procent eller kronor på korgen."
+      },
+      {
+        "title": "Kvitto",
+        "text": "Kvittot skrivs ut när försäljningen är registrerad. Kunden ser korgen och totalen på kundskärmen."
+      }
+    ],
+    "moreHeading": "Det som händer runt köpet",
+    "more": [
+      {
+        "title": "Parkera köp",
+        "text": "Lägg undan en pågående korg och ta upp den när kunden kommer tillbaka."
+      },
+      {
+        "title": "Retur",
+        "text": "Skanna kvittots streckkod, välj rader och återbetalningssätt. Lager läggs tillbaka för produkter."
+      },
+      {
+        "title": "Presentkort",
+        "text": "Sälj ett belopp i kassan och lös in koden i betalningen."
+      },
+      {
+        "title": "Växel",
+        "text": "Insättning och uttag i växelkassan sparas och syns på X- och Z-rapport."
+      },
+      {
+        "title": "X-rapport",
+        "text": "Översikt av försäljning och betalningar under dagen, utan att låsa den."
+      },
+      {
+        "title": "Z-rapport",
+        "text": "Dagsavslut. Dagen låses. Tidigare dagar ligger kvar i Z-historiken."
+      }
+    ],
+    "closing": "Inför bokslut stämmer en checklista av att dagarna har Z-rapport, att försäljningen matchar betalningarna och att inköp och inventering i perioden är klara.",
+    "bookLabel": "Boka visning"
+  },
+  "lager": {
+    "title": "Lager och inköp — {foretag}",
+    "description": "Lagersaldo, inköp, inventering och streckkoder i samma system som kassan.",
+    "eyebrow": "Lager",
+    "heading": "Saldot följer det som händer i butiken.",
+    "lead": "Kassan, inköpen och inventeringen skriver i samma lager. Tjänster ingår inte i saldot. Inaktiva artiklar döljs tills du väljer att visa dem.",
+    "movements": [
+      {
+        "title": "Försäljning",
+        "text": "En såld produkt minskar saldot direkt."
+      },
+      {
+        "title": "Retur",
+        "text": "Produkten läggs tillbaka. En tjänst återbetalas utan lagerändring."
+      },
+      {
+        "title": "Inköp",
+        "text": "Lagret ökar när inköpet låses."
+      },
+      {
+        "title": "Justering",
+        "text": "Svinn, intern förbrukning och korrigering mot hyllan görs med en anledning."
+      }
+    ],
+    "countHeading": "Inventering",
+    "countText": "Räkna fysiska artiklar genom sökning eller skanning. En större räkning kan sparas som session och låsas när den är klar, även om den görs över flera pass. Tjänster syns inte och kan inte skannas in.",
+    "codeHeading": "Streckkoder",
+    "codeText": "Artiklar får koder som kassan kan skanna. Etiketter skrivs ut från programmet, på en etikettskrivare om butiken har en. Utan egen etikettskrivare öppnas etiketten som PDF.",
+    "codeLink": "Etikettskrivare är tillval"
+  },
+  "kraven": {
+    "title": "Kraven från 2027 — {foretag}",
+    "description": "Från 1 januari 2027 ska kassaregistret uppfylla SKVFS 2021:17, med XML-export av journalminnet och en certifierad kontrollenhet.",
+    "eyebrow": "1 januari 2027",
+    "heading": "Kassan är byggd för kraven som gäller då.",
+    "lead": "Från den 1 januari 2027 ska ett kassaregister som används i Sverige uppfylla SKVFS 2021:17. Har det journalminne ska registreringarna kunna tas ut som XML. {produkt} är utformad och testad enligt den föreskriften, tillsammans med en certifierad kontrollenhet.",
+    "points": [
+      {
+        "title": "Kassaregistret",
+        "text": "Programmet ska uppfylla Skatteverkets föreskrifter om krav på kassaregister, SKVFS 2021:17. Det omfattar bland annat kvitto, kontrollkod och att försäljning, retur och kvittokopia inte registreras när kontrollenheten inte svarar."
+      },
+      {
+        "title": "Journalen som XML",
+        "text": "Ett kassaregister med journalminne ska kunna lämna registreringarna som XML enligt SKVFS 2021:16. Filen är det format Skatteverket använder när uppgifterna ska tas ut."
+      },
+      {
+        "title": "Certifierad kontrollenhet",
+        "text": "Kassan ska vara kopplad till en certifierad kontrollenhet. Certifikatet gäller enheten. Skatteverket testar inte kassaprogrammet. Tillverkaren deklarerar att programversionen är testad och uppfyller föreskriften."
+      }
+    ],
+    "programEyebrow": "Kassaprogrammet",
+    "programHeading": "{produkt}",
+    "programText": "Versionen är utformad och testad enligt SKVFS 2014:9 i den lydelse som gäller genom SKVFS 2021:17. Journalminnet kan exporteras som XML. Det är det kravet som styr kassaregister från 2027.",
+    "unitEyebrow": "Kontrollenheten",
+    "unitHeading": "CleanCash Typ A",
+    "unitText": "Enheten är certifierad, certifikat CU1001. En certifierad kontrollenhet är det krav Skatteverket ställer på den enhet som tar emot kontrollkoden. En enhet per kassa.",
+    "shopHeading": "Vad butiken gör",
+    "shopText": "Butiken anmäler kassaregistret hos Skatteverket när det tas i bruk: program, version, kassabeteckning och kontrollenhetens tillverkningsnummer. Anmälan är butikens, och den är skild från tillverkarens deklaration av programmet.",
+    "bookLabel": "Boka visning"
+  },
+  "utrustning": {
+    "title": "Utrustning — {foretag}",
+    "description": "Kassapaket med dator, kvittoskrivare, kassalåda, kundskärm och streckkodsläsare, plus CleanCash Typ A och betalterminal från Nets.",
+    "eyebrow": "Utrustning",
+    "heading": "Det som står på disken.",
+    "lead": "Kassapaketet är datorn och det kassan behöver för att ta betalt och skriva kvitto. Kontrollenheten är en egen, obligatorisk del. Etikettskrivare och betalterminal från Nets läggs till när butiken behöver dem.",
+    "packHeading": "Kassapaketet",
+    "pack": [
+      {
+        "title": "Kassadator",
+        "text": "PC med programmet installerat. Kassa och administration körs i webbläsaren på samma dator."
+      },
+      {
+        "title": "Kvittoskrivare",
+        "text": "ESC/POS-skrivare. Kvittot skrivs ut när försäljningen är registrerad."
+      },
+      {
+        "title": "Kassalåda",
+        "text": "Öppnas vid kontant betalning och när någon öppnar lådan medvetet, till exempel för växel."
+      },
+      {
+        "title": "Kundskärm",
+        "text": "En andra skärm mot kunden med varukorg och total. Den följer med efter inloggning i kassan."
+      },
+      {
+        "title": "Streckkodsläsare",
+        "text": "Skannar vara, tjänst och kvittots kod vid retur."
+      }
+    ],
+    "unitEyebrow": "Obligatorisk, en per kassa",
+    "unitHeading": "Kontrollenhet",
+    "unitText": "CleanCash Typ A kopplas till kassadatorn. Enheten är certifierad, certifikat CU1001. Försäljning, retur och kvittokopia registreras när enheten svarar och lämnar kontrollkod. Certifieringen är det krav Skatteverket ställer på kontrollenheten, även när kassaregistret från 2027 ska uppfylla SKVFS 2021:17.",
+    "labelEyebrow": "Tillval",
+    "labelHeading": "Etikettskrivare",
+    "labelText": "För streckkodsetiketter. Utan den skrivs etiketterna ut via webbläsarens utskriftsdialog.",
+    "terminalHeading": "Betalterminal från Nets",
+    "terminalText": "Kortterminal från Nets, en per kassa. Kassan skickar kortbeloppet till terminalen. Den ingår inte i kassapaketet. Kontant, Swish, presentkort och tillgodo används oavsett terminal.",
+    "priceLink": "Se prisupplägget"
+  },
+  "pris": {
+    "title": "Pris — {foretag}",
+    "description": "Månadsavgift för programmet, engångspris för kassapaketet, en kontrollenhet per kassa och betalterminal från Nets.",
+    "eyebrow": "Pris",
+    "heading": "Tre poster. Inget mer i grunden.",
+    "lead": "Programmet är en månadskostnad. Kassapaketet och kontrollenheten betalas en gång. Betalterminal från Nets läggs till per kassa som tar kort. Priserna sätts vid visningen, utifrån butikens disk.",
+    "rows": [
+      {
+        "title": "Program",
+        "when": "Varje månad",
+        "suffix": "/ mån",
+        "text": "Kassa, kundskärm, lager, inköp, inventering, presentkort, streckkoder, rapporter och bokslutskontroll. Uppdateringar och support ingår."
+      },
+      {
+        "title": "Kassapaket",
+        "when": "En gång",
+        "suffix": "engång",
+        "text": "Kassadator med programmet installerat, kvittoskrivare, kassalåda, kundskärm och streckkodsläsare. Installation och genomgång i butiken ingår."
+      },
+      {
+        "title": "Kontrollenhet",
+        "when": "En gång per kassa",
+        "suffix": "per kassa",
+        "text": "CleanCash Typ A. Certifierad hårdvara från annan tillverkare. Krävs för att kassan ska kunna registrera försäljning."
+      },
+      {
+        "title": "Betalterminal",
+        "when": "Tillval, en per kassa",
+        "suffix": "per kassa",
+        "text": "Kortterminal från Nets. Kassan skickar kortbeloppet till terminalen. Ingår inte i kassapaketet."
+      }
+    ],
+    "notes": [
+      "Etikettskrivare offereras som tillval.",
+      "En andra kassa i samma butik behöver egen kontrollenhet, egen skrivare, egen kundskärm och egen betalterminal om den tar kort."
+    ],
+    "bookLabel": "Boka visning och få pris"
+  },
+  "support": {
+    "title": "Support — {foretag}",
+    "description": "Installation i butiken, genomgång med personalen och hjälp när kassa eller kontrollenhet strular.",
+    "eyebrow": "Support",
+    "heading": "Samma person installerar och svarar sedan.",
+    "lead": "{foretag} sätter upp kassan och är den du ringer när den inte beter sig. Varje butik är en egen installation.",
+    "items": [
+      {
+        "title": "Installation",
+        "text": "Dator, skrivare, låda, kundskärm, läsare och kontrollenhet ställs in i butiken. Betalterminal från Nets kopplas in när den ingår i beställningen. Programmet ligger på kassadatorn när vi lämnar."
+      },
+      {
+        "title": "Genomgång",
+        "text": "Den som står i kassan får sälja, ta retur, parkera en korg och se hur dagen stängs."
+      },
+      {
+        "title": "Uppdateringar",
+        "text": "Nya versioner av programmet ingår i månadsavgiften och läggs in på er kassadator."
+      },
+      {
+        "title": "När något strular",
+        "text": "Skrivare, kvitto och kontrollenhet felsöks av den som installerade kassan. När kontrollenheten inte svarar ska ingen ny försäljning registreras förrän den svarar igen."
+      }
+    ],
+    "contactHeading": "Kontakt",
+    "contactText": "För visning, pris eller ett fel i en kassa som redan är igång.",
+    "bookLabel": "Boka visning"
+  },
+  "boka": {
+    "title": "Boka visning — {foretag}",
+    "description": "Boka en visning av butikskassan. Förfrågan öppnas i ditt e-postprogram.",
+    "eyebrow": "Visning",
+    "heading": "Boka en genomgång.",
+    "lead": "Vi går igenom försäljning, lager, dagsavslut och vilken utrustning som behövs på er disk. Visningen körs mot en demobutik.",
+    "note": "Formuläret öppnar ditt e-postprogram med texten ifylld, adresserat till {namn}. Skicka mailet därifrån. Det går också att ringa",
+    "nameLabel": "Namn",
+    "shopLabel": "Butik",
+    "placeLabel": "Ort",
+    "phoneLabel": "Telefon",
+    "emailLabel": "E-post",
+    "messageLabel": "Vad vill du se?",
+    "messagePlaceholder": "Till exempel kassa, lager eller en andra kassa.",
+    "submitLabel": "Öppna förfrågan i e-post",
+    "status": "E-postprogrammet öppnas med förfrågan. Skicka mailet därifrån.",
+    "mailSubject": "Visning av butikskassan"
+  },
+  "integritet": {
+    "title": "Integritet — {foretag}",
+    "description": "Så hanteras namn, butik och telefon när du bokar en visning.",
+    "eyebrow": "Integritet",
+    "heading": "Uppgifterna i en visningsförfrågan",
+    "paragraphs": [
+      "Sidan sparar inga formulär i en databas. När du skickar förfrågan öppnas ditt e-postprogram, och mailet går till {namn} på {epost} först när du själv skickar det.",
+      "Mailet kan innehålla namn, butik, ort, telefon, e-post och det du skriver om visningen. Det används för att boka visningen och lämna pris. Det ligger sedan i den inkorgen."
+    ],
+    "deleteLead": "Skriv till",
+    "deleteTail": "om du vill att förfrågan raderas."
+  },
+  "notFound": {
+    "title": "Sidan finns inte — {foretag}",
+    "description": "Sidan finns inte.",
+    "heading": "Sidan finns inte.",
+    "text": "Adressen leder ingenstans på den här sajten.",
+    "homeLabel": "Till startsidan"
+  }
+}

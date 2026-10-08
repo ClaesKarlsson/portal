@@ -1,11 +1,14 @@
 ---
 import Base from "../layouts/Base.astro";
+import { content, fyll } from "../data/site";
+
+const page = content.notFound;
 ---
 
-<Base title="Sidan finns inte — Kassa På Plats" description="Sidan finns inte.">
+<Base title={fyll(page.title)} description={fyll(page.description)}>
   <section class="mx-auto max-w-6xl px-5 pt-20">
-    <h1 class="text-4xl sm:text-5xl">Sidan finns inte.</h1>
-    <p class="mt-4 text-lg text-muted">Adressen leder ingenstans på den här sajten.</p>
-    <a class="btn mt-8" href="/">Till startsidan</a>
+    <h1 class="text-4xl sm:text-5xl">{fyll(page.heading)}</h1>
+    <p class="mt-4 text-lg text-muted">{fyll(page.text)}</p>
+    <a class="btn mt-8" href="/">{fyll(page.homeLabel)}</a>
   </section>
 </Base>
