@@ -238,10 +238,10 @@
     "codeLink": "Etikettskrivare är tillval"
   },
   "kraven": {
-    "title": "Kraven från 2027 — {foretag}",
-    "description": "Från 1 januari 2027 ska kassaregistret uppfylla SKVFS 2021:17, med XML-export av journalminnet och en certifierad kontrollenhet.",
-    "eyebrow": "1 januari 2027",
-    "heading": "Kassan är byggd för kraven som gäller då.",
+    "title": "Kassaregister krav 2027 — SKVFS 2021:17",
+    "description": "Från 1 januari 2027 ska kassaregistret uppfylla SKVFS 2021:17, med journalminne som XML och en certifierad kontrollenhet.",
+    "eyebrow": "SKVFS 2021:17",
+    "heading": "Kraven på kassaregister från 1 januari 2027.",
     "lead": "Från den 1 januari 2027 ska ett kassaregister som används i Sverige uppfylla SKVFS 2021:17. Har det journalminne ska registreringarna kunna tas ut som XML. {produkt} är utformad och testad enligt den föreskriften, tillsammans med en certifierad kontrollenhet.",
     "points": [
       {

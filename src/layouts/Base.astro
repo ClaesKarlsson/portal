@@ -20,6 +20,7 @@ const { title, description } = Astro.props;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
+    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
     <meta name="description" content={description} />
     <meta name="theme-color" content="#1f4d3a" />
     <meta property="og:title" content={title} />
