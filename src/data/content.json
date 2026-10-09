@@ -123,37 +123,8 @@
     "ctaText": "Visningen görs mot en demobutik. Boka tid, så går vi igenom försäljning, lager och dagsavslut.",
     "ctaLabel": "Boka visning",
     "sketch": {
-      "kicker": "Kassa",
-      "badge": "Skiss",
-      "lines": [
-        {
-          "name": "Skjorta",
-          "note": "",
-          "amount": "349 kr"
-        },
-        {
-          "name": "Lagning",
-          "note": "tjänst",
-          "amount": "220 kr"
-        },
-        {
-          "name": "Påse",
-          "note": "",
-          "amount": "2 kr"
-        }
-      ],
-      "dueLabel": "Att betala",
-      "dueAmount": "571 kr",
-      "payments": [
-        "Kontant",
-        "Kort",
-        "Swish",
-        "Presentkort"
-      ],
-      "screenLabel": "Kundskärm",
-      "screenAmount": "571 kr",
-      "screenNote": "3 rader i korgen",
-      "caption": "Förenklad skiss av kassan. Ingen skärmdump från en butik."
+      "src": "/skiss.jpg?1791549380288",
+      "alt": "Skiss av kassan"
     }
   },
   "kassan": {
