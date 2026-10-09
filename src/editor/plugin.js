@@ -1,8 +1,10 @@
-import { readFileSync, renameSync, writeFileSync } from "node:fs";
+import { readdirSync, readFileSync, renameSync, unlinkSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
-const contentPath = join(dirname(fileURLToPath(import.meta.url)), "../data/content.json");
+const editorDir = dirname(fileURLToPath(import.meta.url));
+const contentPath = join(editorDir, "../data/content.json");
+const publicDir = join(editorDir, "../../public");
 
 const sections = [
   ["contact", "Kontakt"],
@@ -132,8 +134,54 @@ const arrayNouns = {
   paragraphs: "Stycke",
 };
 
-const groupTitles = {
-  "home.sketch": "Skissen på startsidan",
+const sectionGroups = {
+  chrome: [
+    ["Meny", ["tagline", "menuLabel", "bookLabel", "navLabel", "skipLabel", "nav"]],
+    ["Sidfot", ["footerLead", "privacyLabel"]],
+  ],
+  home: [
+    ["Inledning", ["title", "description", "eyebrow", "heading", "lead", "bookLabel", "demoLabel", "equipmentLabel"]],
+    ["Tre saker personalen gör", ["flowsHeading", "flowsMore", "flows"]],
+    ["Det stannar i butiken", ["localHeading", "localLead", "localCards"]],
+    ["Kraven", ["rulesEyebrow", "rulesHeading", "rulesText", "rulesLink"]],
+    ["Det du köper", ["buyHeading", "buyLink", "offer", "buyNote"]],
+    ["Avslut", ["ctaHeading", "ctaText", "ctaLabel"]],
+    ["Skissen", ["sketch"]],
+  ],
+  kassan: [
+    ["Inledning", ["title", "description", "eyebrow", "heading", "lead", "rulesLink"]],
+    ["Från skanning till kvitto", ["steps"]],
+    ["Runt köpet", ["moreHeading", "more", "closing", "bookLabel"]],
+  ],
+  lager: [
+    ["Inledning", ["title", "description", "eyebrow", "heading", "lead"]],
+    ["Händelser", ["movements"]],
+    ["Inventering och streckkoder", ["countHeading", "countText", "codeHeading", "codeText", "codeLink"]],
+  ],
+  kraven: [
+    ["Inledning", ["title", "description", "eyebrow", "heading", "lead"]],
+    ["De tre kraven", ["points"]],
+    ["Program och kontrollenhet", ["programEyebrow", "programHeading", "programText", "unitEyebrow", "unitHeading", "unitText"]],
+    ["Butiken", ["shopHeading", "shopText", "bookLabel"]],
+  ],
+  utrustning: [
+    ["Inledning", ["title", "description", "eyebrow", "heading", "lead"]],
+    ["Kassapaketet", ["packHeading", "pack"]],
+    ["Kontrollenhet och tillval", ["unitEyebrow", "unitHeading", "unitText", "labelEyebrow", "labelHeading", "labelText", "terminalHeading", "terminalText", "priceLink"]],
+  ],
+  pris: [
+    ["Inledning", ["title", "description", "eyebrow", "heading", "lead"]],
+    ["Prisraderna", ["rows", "notes", "bookLabel"]],
+  ],
+  support: [
+    ["Inledning", ["title", "description", "eyebrow", "heading", "lead"]],
+    ["Vad som ingår", ["items"]],
+    ["Kontakt", ["contactHeading", "contactText", "bookLabel"]],
+  ],
+  boka: [
+    ["Inledning", ["title", "description", "eyebrow", "heading", "lead", "note"]],
+    ["Formuläret", ["nameLabel", "shopLabel", "placeLabel", "phoneLabel", "emailLabel", "messageLabel", "messagePlaceholder", "submitLabel", "status", "mailSubject"]],
+  ],
 };
 
 const areaKeys = new Set([
@@ -199,13 +247,45 @@ function renderField(path, key, parentKey, value) {
   return `<label class="field" for="${id}"><span>${escapeHtml(label)}</span><input id="${id}" data-path="${escapeHtml(path)}" data-kind="text" value="${escapeHtml(value)}" /></label>`;
 }
 
+function itemLegend(item, noun, index) {
+  if (item && typeof item === "object") {
+    const title = typeof item.title === "string" ? item.title.trim() : "";
+    const name = typeof item.name === "string" ? item.name.trim() : "";
+    if (title) return title;
+    if (name) return name;
+  }
+  if (typeof item === "string" && item.trim()) {
+    const text = item.trim().replace(/\s+/g, " ");
+    return text.length > 52 ? `${text.slice(0, 52)}…` : text;
+  }
+  return `${noun} ${index + 1}`;
+}
+
+function renderSketch(sketch) {
+  const src = typeof sketch.src === "string" ? sketch.src : "";
+  const alt = typeof sketch.alt === "string" ? sketch.alt : "";
+  const preview = src
+    ? `<img class="sketch-preview" data-sketch-preview src="${escapeHtml(src)}" alt="" />`
+    : `<img class="sketch-preview" data-sketch-preview alt="" hidden />`;
+  return `<div class="sketch">
+    ${preview}
+    <p class="hint" data-sketch-note>${src ? "Byt bilden genom att välja en ny fil. Den sparas direkt." : "Ingen bild ännu. Välj en jpg, png, webp eller gif. Den sparas direkt."}</p>
+    <label class="field" for="f-home-sketch-file"><span>Bild</span><input id="f-home-sketch-file" data-sketch-file type="file" accept="image/jpeg,image/png,image/webp,image/gif" /></label>
+    <label class="field" for="f-home-sketch-alt"><span>Beskrivning av bilden</span><input id="f-home-sketch-alt" data-path="home.sketch.alt" data-kind="text" value="${escapeHtml(alt)}" /></label>
+    <input data-path="home.sketch.src" data-kind="text" type="hidden" value="${escapeHtml(src)}" />
+  </div>`;
+}
+
 function renderValue(value, path, key, parentKey) {
+  if (path === "home.sketch" && value && typeof value === "object" && !Array.isArray(value)) {
+    return renderSketch(value);
+  }
   if (Array.isArray(value)) {
     const noun = arrayNouns[key] ?? "Post";
     return value
       .map((item, index) => {
         const child = `${path}.${index}`;
-        return `<fieldset><legend>${escapeHtml(noun)} ${index + 1}</legend>${renderValue(item, child, String(index), key)}</fieldset>`;
+        return `<fieldset><legend>${escapeHtml(itemLegend(item, noun, index))}</legend>${renderValue(item, child, String(index), key)}</fieldset>`;
       })
       .join("");
   }
@@ -213,12 +293,29 @@ function renderValue(value, path, key, parentKey) {
     const inner = Object.entries(value)
       .map(([childKey, child]) => renderValue(child, path ? `${path}.${childKey}` : childKey, childKey, key))
       .join("");
-    if (groupTitles[path]) {
-      return `<fieldset><legend>${escapeHtml(groupTitles[path])}</legend>${inner}</fieldset>`;
-    }
     return inner;
   }
   return renderField(path, key, parentKey, value);
+}
+
+function renderGrouped(key, value) {
+  const groups = sectionGroups[key];
+  if (!groups) return renderValue(value, key, key, "");
+  const used = new Set();
+  const blocks = groups.map(([label, keys], index) => {
+    for (const childKey of keys) used.add(childKey);
+    const inner = keys
+      .filter((childKey) => Object.prototype.hasOwnProperty.call(value, childKey))
+      .map((childKey) => renderValue(value[childKey], `${key}.${childKey}`, childKey, key))
+      .join("");
+    return `<details${index === 0 ? " open" : ""}><summary>${escapeHtml(label)}</summary>${inner}</details>`;
+  });
+  const rest = Object.keys(value).filter((childKey) => !used.has(childKey));
+  if (rest.length > 0) {
+    const inner = rest.map((childKey) => renderValue(value[childKey], `${key}.${childKey}`, childKey, key)).join("");
+    blocks.push(`<details open><summary>Övrigt</summary>${inner}</details>`);
+  }
+  return blocks.join("");
 }
 
 function renderPage(content) {
@@ -227,9 +324,16 @@ function renderPage(content) {
   if (sectionKeys.join("\n") !== contentKeys.join("\n")) {
     return `<!doctype html><html lang="sv"><body><p>Innehållsfilen och formuläret har inte samma avsnitt.</p></body></html>`;
   }
+  const shared = new Set(["contact", "prices", "chrome"]);
+  const nav = [
+    `<p class="nav-label">Gemensamt</p>`,
+    ...sections.filter(([key]) => shared.has(key)).map(([key, title]) => `<button type="button" data-nav="${escapeHtml(key)}">${escapeHtml(title)}</button>`),
+    `<p class="nav-label">Sidor</p>`,
+    ...sections.filter(([key]) => !shared.has(key)).map(([key, title]) => `<button type="button" data-nav="${escapeHtml(key)}">${escapeHtml(title)}</button>`),
+  ].join("");
   const blocks = sections
     .map(([key, title]) => {
-      return `<section><h2>${escapeHtml(title)}</h2>${renderValue(content[key], key, key, "")}</section>`;
+      return `<section id="del-${escapeHtml(key)}" data-section="${escapeHtml(key)}" hidden><h2>${escapeHtml(title)}</h2>${renderGrouped(key, content[key])}</section>`;
     })
     .join("");
 
@@ -243,40 +347,120 @@ function renderPage(content) {
     :root { color-scheme: light; }
     * { box-sizing: border-box; }
     body { margin: 0; background: #efeae2; color: #1a1814; font: 16px/1.5 "Segoe UI", sans-serif; }
-    main { max-width: 46rem; margin: 0 auto; padding: 2rem 1.25rem 6rem; }
+    main { max-width: 68rem; margin: 0 auto; padding: 1.5rem 1.25rem 6rem; }
     h1 { font-size: 2rem; line-height: 1.15; margin: 0 0 0.75rem; }
-    h2 { font-size: 1.35rem; margin: 0 0 1rem; }
-    p.intro { color: #4f493f; margin: 0 0 1.5rem; }
+    h2 { font-size: 1.5rem; margin: 0 0 1rem; }
+    p.intro { color: #4f493f; margin: 0 0 1.25rem; max-width: 46rem; }
     a { color: #1f4d3a; }
-    section, fieldset { border: 1px solid #d8d0c4; background: #f7f4ef; border-radius: 1.1rem; padding: 1rem 1rem 0.25rem; margin: 0 0 1rem; }
+    .shell { display: grid; grid-template-columns: 15rem minmax(0, 1fr); gap: 1.5rem; align-items: start; }
+    nav.sections { position: sticky; top: 1rem; display: flex; flex-direction: column; gap: 0.2rem; max-height: calc(100dvh - 8rem); overflow: auto; }
+    .nav-label { margin: 0.85rem 0 0.15rem; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #4f493f; }
+    .nav-label:first-child { margin-top: 0; }
+    nav.sections button { border: 0; border-radius: 0.7rem; background: transparent; color: #1a1814; font: inherit; font-weight: 650; text-align: left; padding: 0.45rem 0.7rem; cursor: pointer; }
+    nav.sections button[aria-current="true"] { background: #1f4d3a; color: #efeae2; }
+    nav.sections button:hover { background: #e4ddd3; }
+    nav.sections button[aria-current="true"]:hover { background: #2a6850; }
+    section { margin: 0; }
+    details, fieldset { border: 1px solid #d8d0c4; background: #f7f4ef; border-radius: 1rem; padding: 0.35rem 1rem 0.15rem; margin: 0 0 0.75rem; }
     fieldset { background: #fff; }
+    summary { cursor: pointer; font-weight: 700; padding: 0.55rem 0; }
     legend { font-weight: 650; padding: 0 0.3rem; }
     label.field { display: block; margin: 0 0 0.9rem; font-size: 0.92rem; font-weight: 650; }
     input, textarea { display: block; width: 100%; margin-top: 0.35rem; border: 1px solid #d8d0c4; border-radius: 0.75rem; padding: 0.65rem 0.75rem; font: inherit; font-weight: 450; color: #1a1814; background: #fff; }
     textarea { min-height: 6rem; resize: vertical; }
-    .bar { position: sticky; bottom: 0; display: flex; gap: 0.75rem; align-items: center; justify-content: space-between; margin: 0 -1.25rem; padding: 0.8rem 1.25rem; background: #efeae2; border-top: 1px solid #d8d0c4; }
-    button { border: 0; border-radius: 999px; background: #1f4d3a; color: #efeae2; font: inherit; font-weight: 650; padding: 0.7rem 1.15rem; cursor: pointer; }
-    button:hover { background: #2a6850; }
+    .bar { position: sticky; bottom: 0; display: flex; gap: 0.75rem; align-items: center; justify-content: space-between; margin: 1rem -1.25rem 0; padding: 0.8rem 1.25rem; background: #efeae2; border-top: 1px solid #d8d0c4; }
+    button.save { border: 0; border-radius: 999px; background: #1f4d3a; color: #efeae2; font: inherit; font-weight: 650; padding: 0.7rem 1.15rem; cursor: pointer; }
+    button.save:hover { background: #2a6850; }
     #status { min-height: 1.5rem; font-weight: 650; }
     #status.error { color: #8f3d1b; }
     code { font-family: ui-monospace, monospace; font-size: 0.9em; }
+    .sketch-preview { display: block; width: 100%; max-height: 22rem; object-fit: contain; background: #fff; border: 1px solid #d8d0c4; border-radius: 0.75rem; margin: 0 0 0.9rem; }
+    .hint { margin: 0 0 0.9rem; color: #4f493f; font-size: 0.92rem; font-weight: 450; }
+    @media (max-width: 800px) {
+      .shell { grid-template-columns: 1fr; }
+      nav.sections { position: static; flex-direction: row; flex-wrap: wrap; }
+      .nav-label { width: 100%; }
+    }
   </style>
 </head>
 <body>
   <main>
     <h1>Redigera texter</h1>
-    <p class="intro">Ändringarna sparas i projektet på den här datorn. Den publika sajten ändras när du publicerar den, som vanligt. Antalet kort och sidornas adresser går inte att ändra här. Skriv <code>{foretag}</code>, <code>{produkt}</code>, <code>{namn}</code>, <code>{epost}</code>, <code>{telefon}</code> eller <code>{ort}</code> där de uppgifterna ska stå. Lämna ett pris tomt om det ska visas som texten när belopp saknas.</p>
+    <p class="intro">Välj en del till vänster. Spara gäller alla delar, även de som inte visas. Ändringarna sparas på den här datorn. Den publika sajten ändras när du publicerar den. Skriv <code>{foretag}</code>, <code>{produkt}</code>, <code>{namn}</code>, <code>{epost}</code>, <code>{telefon}</code> eller <code>{ort}</code> där de uppgifterna ska stå. Lämna ett pris tomt om det ska visas som texten när belopp saknas.</p>
     <form id="editor">
-      ${blocks}
+      <div class="shell">
+        <nav class="sections" aria-label="Delar">${nav}</nav>
+        <div>${blocks}</div>
+      </div>
       <div class="bar">
         <p id="status" role="status"></p>
-        <button type="submit">Spara</button>
+        <button class="save" type="submit">Spara</button>
       </div>
     </form>
   </main>
   <script>
     const form = document.querySelector("#editor");
     const status = document.querySelector("#status");
+    const sections = [...form.querySelectorAll("[data-section]")];
+    const navButtons = [...form.querySelectorAll("[data-nav]")];
+
+    function showSection(id) {
+      for (const section of sections) section.hidden = section.dataset.section !== id;
+      for (const button of navButtons) {
+        if (button.dataset.nav === id) button.setAttribute("aria-current", "true");
+        else button.removeAttribute("aria-current");
+      }
+      if (location.hash !== "#" + id) history.replaceState(null, "", "#" + id);
+    }
+
+    function reveal(field) {
+      const section = field.closest("[data-section]");
+      if (section) showSection(section.dataset.section);
+      let details = field.closest("details");
+      while (details) {
+        details.open = true;
+        details = details.parentElement?.closest("details") ?? null;
+      }
+      field.focus();
+    }
+
+    const initial = location.hash.replace("#", "");
+    showSection(sections.some((section) => section.dataset.section === initial) ? initial : "contact");
+    for (const button of navButtons) {
+      button.addEventListener("click", () => showSection(button.dataset.nav));
+    }
+
+    const sketchFile = form.querySelector("[data-sketch-file]");
+    const sketchNote = form.querySelector("[data-sketch-note]");
+    const sketchPreview = form.querySelector("[data-sketch-preview]");
+    const sketchSrc = form.querySelector('[data-path="home.sketch.src"]');
+    sketchFile?.addEventListener("change", async () => {
+      const file = sketchFile.files?.[0];
+      if (!file) return;
+      sketchNote.textContent = "Laddar upp bilden…";
+      try {
+        const response = await fetch("/redigera/skiss", {
+          method: "POST",
+          headers: { "content-type": file.type || "application/octet-stream" },
+          body: file,
+        });
+        const payload = await response.json().catch(() => ({}));
+        if (!response.ok) {
+          sketchNote.textContent = payload.error || "Det gick inte att ladda upp bilden.";
+          return;
+        }
+        if (sketchSrc) sketchSrc.value = payload.src;
+        if (sketchPreview) {
+          sketchPreview.src = payload.src;
+          sketchPreview.hidden = false;
+        }
+        sketchNote.textContent = "Bilden är sparad. Beskrivningen sparas med Spara.";
+        sketchFile.value = "";
+      } catch {
+        sketchNote.textContent = "Det gick inte att ladda upp bilden.";
+      }
+    });
+
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
       status.className = "";
@@ -292,7 +476,7 @@ function renderPage(content) {
           if (!/^\\d+$/.test(raw)) {
             status.className = "error";
             status.textContent = "Belopp ska vara ett helt antal kronor, eller tomt.";
-            field.focus();
+            reveal(field);
             return;
           }
           values[field.dataset.path] = Number(raw);
@@ -382,22 +566,55 @@ function applyValues(current, values) {
   return next;
 }
 
-function readBody(req) {
+function readBuffer(req, limit) {
   return new Promise((resolve, reject) => {
     const chunks = [];
     let size = 0;
     req.on("data", (chunk) => {
       size += chunk.length;
-      if (size > 1_000_000) {
+      if (size > limit) {
         reject(new Error("big"));
         req.destroy();
         return;
       }
       chunks.push(chunk);
     });
-    req.on("end", () => resolve(Buffer.concat(chunks).toString("utf8")));
+    req.on("end", () => resolve(Buffer.concat(chunks)));
     req.on("error", reject);
   });
+}
+
+function imageExtension(buffer) {
+  if (buffer.length >= 3 && buffer[0] === 0xff && buffer[1] === 0xd8 && buffer[2] === 0xff) return "jpg";
+  const png = Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]);
+  if (buffer.length >= png.length && buffer.subarray(0, png.length).equals(png)) return "png";
+  const gif = buffer.length >= 6 ? buffer.subarray(0, 6).toString("ascii") : "";
+  if (gif === "GIF87a" || gif === "GIF89a") return "gif";
+  if (
+    buffer.length >= 12 &&
+    buffer.subarray(0, 4).toString("ascii") === "RIFF" &&
+    buffer.subarray(8, 12).toString("ascii") === "WEBP"
+  ) {
+    return "webp";
+  }
+  return "";
+}
+
+function saveSketch(buffer) {
+  const extension = imageExtension(buffer);
+  if (!extension) return "Bilden ska vara jpg, png, webp eller gif.";
+  for (const name of readdirSync(publicDir)) {
+    if (/^skiss\.(jpg|png|webp|gif)$/.test(name)) unlinkSync(join(publicDir, name));
+  }
+  const filename = `skiss.${extension}`;
+  writeFileSync(join(publicDir, filename), buffer);
+  const content = readContent();
+  const alt = typeof content.home?.sketch?.alt === "string" ? content.home.sketch.alt : "";
+  content.home.sketch = { src: `/${filename}?${Date.now()}`, alt };
+  const temporary = `${contentPath}.tmp`;
+  writeFileSync(temporary, `${JSON.stringify(content, null, 2)}\n`);
+  renameSync(temporary, contentPath);
+  return content.home.sketch.src;
 }
 
 function send(res, status, body, type) {
@@ -409,6 +626,7 @@ function send(res, status, body, type) {
 export function redigera() {
   return {
     name: "redigera",
+    enforce: "post",
     configureServer(server) {
       server.httpServer?.once("listening", () => {
         const address = server.httpServer?.address();
@@ -416,20 +634,37 @@ export function redigera() {
         server.config.logger.info(`Redigera texter på http://localhost:${port}/redigera`);
       });
 
-      server.middlewares.use(async (req, res, next) => {
+      const handle = async (req, res, next) => {
         const url = req.url?.split("?")[0];
-        if (url !== "/redigera" && url !== "/redigera/") return next();
+        const isForm = url === "/redigera" || url === "/redigera/";
+        const isSketch = url === "/redigera/skiss";
+        if (!isForm && !isSketch) return next();
         if (!isLocal(req)) {
           send(res, 403, "Redigering går bara från den här datorn.\n", "text/plain; charset=utf-8");
           return;
         }
         try {
+          if (isSketch) {
+            if (req.method !== "POST") {
+              res.setHeader("allow", "POST");
+              send(res, 405, "Metoden stöds inte.\n", "text/plain; charset=utf-8");
+              return;
+            }
+            const buffer = await readBuffer(req, 8_000_000);
+            const saved = saveSketch(buffer);
+            if (!saved.startsWith("/")) {
+              send(res, 400, JSON.stringify({ error: saved }), "application/json; charset=utf-8");
+              return;
+            }
+            send(res, 200, JSON.stringify({ src: saved }), "application/json; charset=utf-8");
+            return;
+          }
           if (req.method === "GET") {
             send(res, 200, renderPage(readContent()), "text/html; charset=utf-8");
             return;
           }
           if (req.method === "POST") {
-            const raw = await readBody(req);
+            const raw = (await readBuffer(req, 1_000_000)).toString("utf8");
             const payload = JSON.parse(raw);
             const result = applyValues(readContent(), payload.values);
             if (typeof result === "string") {
@@ -444,10 +679,16 @@ export function redigera() {
           }
           res.setHeader("allow", "GET, POST");
           send(res, 405, "Metoden stöds inte.\n", "text/plain; charset=utf-8");
-        } catch {
-          send(res, 400, JSON.stringify({ error: "Det gick inte att läsa det som skickades." }), "application/json; charset=utf-8");
+        } catch (error) {
+          const tooBig = error instanceof Error && error.message === "big";
+          const message = tooBig ? "Det som skickades är för stort." : "Det gick inte att läsa det som skickades.";
+          send(res, 400, JSON.stringify({ error: message }), "application/json; charset=utf-8");
         }
-      });
+      };
+
+      return () => {
+        server.middlewares.stack.unshift({ route: "", handle });
+      };
     },
   };
 }
