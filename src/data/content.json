@@ -240,15 +240,15 @@
   },
   "utrustning": {
     "title": "Utrustning — {foretag}",
-    "description": "Kassapaket med dator, kvittoskrivare, kassalåda, kundskärm och streckkodsläsare, plus CleanCash Typ A och betalterminal från Nets.",
+    "description": "Kassasystem med dator, kvittoskrivare, kassalåda, kundskärm och streckkodsläsare, plus CleanCash Typ A och betalterminal från Nets.",
     "eyebrow": "Utrustning",
     "heading": "Det som står på disken.",
-    "lead": "Kassapaketet är datorn och det kassan behöver för att ta betalt och skriva kvitto. Kontrollenheten är en egen, obligatorisk del. Etikettskrivare och betalterminal från Nets läggs till när butiken behöver dem.",
-    "packHeading": "Kassapaketet",
+    "lead": "Kassasystemet är datorn och det kassan behöver för att ta betalt och skriva kvitto. Kontrollenheten är en egen, obligatorisk del. Etikettskrivare och betalterminal från Nets läggs till när butiken behöver dem.",
+    "packHeading": "Kassasystemet",
     "pack": [
       {
         "title": "Kassadator",
-        "text": "PC med programmet installerat, SSD disk för backup. Kassa och administration körs i webbläsaren på samma dator."
+        "text": "PC med programmet installerat, Kassa och administration körs i webbläsaren på samma dator."
       },
       {
         "title": "Kvittoskrivare",
@@ -269,7 +269,7 @@
     ],
     "unitEyebrow": "Obligatorisk, en per kassa",
     "unitHeading": "Kontrollenhet",
-    "unitText": "CleanCash Typ A kopplas till kassadatorn. Enheten är certifierad, certifikat CU1001. Försäljning, retur och kvittokopia registreras när enheten svarar och lämnar kontrollkod. Certifieringen är det krav Skatteverket ställer på kontrollenheten, även när kassaregistret från 2027 ska uppfylla SKVFS 2021:17.",
+    "unitText": "CleanCash Typ A kopplas till kassasystemet. Enheten är certifierad, certifikat CU1001. Försäljning, retur och kvittokopia registreras när enheten svarar och lämnar kontrollkod. Certifieringen är det krav Skatteverket ställer på kontrollenheten, även när kassaregistret från 2027 ska uppfylla SKVFS 2021:17.",
     "labelEyebrow": "Tillval",
     "labelHeading": "Etikettskrivare",
     "labelText": "För streckkodsetiketter. Utan den skrivs etiketterna ut via webbläsarens utskriftsdialog.",
@@ -282,7 +282,7 @@
     "description": "Månadsavgift för programmet, engångspris för kassapaketet, en kontrollenhet per kassa och betalterminal från Nets.",
     "eyebrow": "Pris",
     "heading": "Tre poster. Inget mer i grunden.",
-    "lead": "Programmet är en månadskostnad. Kassapaketet och kontrollenheten betalas en gång. Betalterminal från Nets läggs till per kassa som tar kort. Priserna sätts vid visningen, utifrån butikens disk.",
+    "lead": "Programmet är en månadskostnad. Kassasystemet och kontrollenheten betalas en gång. Betalterminal från Nets läggs till per kassa som tar kort. Priserna sätts vid visningen, utifrån butikens disk.",
     "rows": [
       {
         "title": "Program",
@@ -324,7 +324,7 @@
     "items": [
       {
         "title": "Installation",
-        "text": "Dator, skrivare, låda, kundskärm, läsare och kontrollenhet ställs in i butiken. Betalterminal från Nets kopplas in när den ingår i beställningen. Programmet ligger på kassadatorn när vi lämnar."
+        "text": "Dator, kvittoskrivare, låda, kundskärm, läsare och kontrollenhet ställs in i butiken. Betalterminal från Nets kopplas in när den ingår i beställningen. Programmet ligger på kassadatorn när vi lämnar."
       },
       {
         "title": "Genomgång",
