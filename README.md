@@ -24,10 +24,15 @@ Den publika sajten ändras först när du publicerar, som nedan.
 
 ## Publicera
 
-Bygg kommandot är `npm run build`. Publicera mappen `dist/`.
+Den publika sajten är https://kassapaplats.se. `site` i `astro.config.mjs` är redan den adressen. Cloudflare Pages bygger från GitHub när `main` uppdateras: byggkommando `npm run build`, utdatamapp `dist`.
 
-På Cloudflare Pages eller Netlify: koppla repot, byggkommando `npm run build`, utdatamapp `dist`.
-
-När du har ett domännamn, sätt `site: "https://dindomän.se"` i `astro.config.mjs`.
+```bash
+cd ~/projects/portal
+git add src/data/content.json $(ls public/skiss.* 2>/dev/null)
+git commit -m "Uppdatera texterna på sajten."
+git push
+```
 
 Formuläret på `/boka` öppnar besökarens e-postprogram. Det skickar inget själv och sparar inget på servern.
+
+Demobutiken på https://demo.kassapaplats.se är en egen kopia av kassan. Den uppdateras inte av det här repot. Se [docs/DEMO-SYNC.md](docs/DEMO-SYNC.md).
