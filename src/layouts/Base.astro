@@ -12,6 +12,31 @@ interface Props {
 }
 
 const { title, description } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": canonical,
+  url: canonical,
+  name: title,
+  description,
+  inLanguage: "sv-SE",
+  isPartOf: {
+    "@type": "WebSite",
+    "@id": "https://kassapaplats.se/#webbplats",
+    name: site.name,
+    url: "https://kassapaplats.se/",
+  },
+  about: {
+    "@type": "ProfessionalService",
+    "@id": "https://kassapaplats.se/#foretag",
+    name: site.name,
+    description: site.description,
+    email: site.contactEmail,
+    telephone: site.contactPhoneHref,
+    areaServed: "SE",
+  },
+};
 ---
 
 <!doctype html>
@@ -20,29 +45,16 @@ const { title, description } = Astro.props;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
-    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+    <link rel="canonical" href={canonical} />
     <meta name="description" content={description} />
     <meta name="theme-color" content="#1f4d3a" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="sv_SE" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "ProfessionalService",
-      name: site.name,
-      description: site.description,
-      email: site.contactEmail,
-      telephone: site.contactPhoneHref,
-      areaServed: "SE",
-      provider: {
-        "@type": "Person",
-        name: site.contactName,
-        email: site.contactEmail,
-        telephone: site.contactPhoneHref,
-      },
-    })} />
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
   </head>
   <body class="min-h-screen antialiased">
     <a href="#innehall" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-ink focus:px-4 focus:py-2 focus:text-paper">

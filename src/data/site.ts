@@ -1,6 +1,6 @@
 import content from "./content.json";
 
-const navHrefs = ["/kassan", "/kraven", "/lager", "/utrustning", "/pris", "/support"] as const;
+const navHrefs = ["/kassan/", "/kraven/", "/lager/", "/utrustning/", "/pris/", "/support/"] as const;
 
 export const priceKeys = ["programMonthly", "kassapaket", "kontrollenhet", "betalterminal"] as const;
 

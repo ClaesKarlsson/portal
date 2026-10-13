@@ -1,7 +1,7 @@
 ---
 import { content, fyll, nav, site } from "../data/site";
 
-const path = Astro.url.pathname.replace(/\/$/, "") || "/";
+const path = Astro.url.pathname;
 const chrome = content.chrome;
 ---
 
@@ -27,7 +27,7 @@ const chrome = content.chrome;
           </a>
         ))
       }
-      <a href="/boka" class="btn px-4 py-2 text-sm">{fyll(chrome.bookLabel)}</a>
+      <a href="/boka/" class="btn px-4 py-2 text-sm">{fyll(chrome.bookLabel)}</a>
     </nav>
 
     <details class="relative lg:hidden">
@@ -42,7 +42,7 @@ const chrome = content.chrome;
             </a>
           ))
         }
-        <a href="/boka" class="btn mt-2 w-full text-sm">{fyll(chrome.bookLabel)}</a>
+        <a href="/boka/" class="btn mt-2 w-full text-sm">{fyll(chrome.bookLabel)}</a>
       </nav>
     </details>
   </div>
